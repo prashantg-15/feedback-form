@@ -3,14 +3,22 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HomePageComponent } from './home-page/home-page.component';
+import { TeacherFeedbackComponent } from './teacher-feedback/teacher-feedback.component';
+import { CurriculumFeedbackComponent } from './curriculum-feedback/curriculum-feedback.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomePageComponent,
+    TeacherFeedbackComponent,
+    CurriculumFeedbackComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
