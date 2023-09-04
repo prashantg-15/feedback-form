@@ -135,6 +135,7 @@ export class TeacherFeedbackComponent {
       this.AK_step = true;
     }
     this.step++;
+    document.documentElement.scrollTop = 0;
   }
 
   previous() {
