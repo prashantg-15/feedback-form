@@ -28,81 +28,81 @@ export class TeacherFeedbackComponent {
   ngOnInit() {
     this.PR = this.formBuilder.group({
       ucid: [''],
-      Q1: [''],
-      Q2: [''],
-      Q3: [''],
-      Q4: [''],
-      Q5: [''],
-      Q6: [''],
-      Q7: [''],
-      Q8: [''],
-      Q9: [''],
-      Q10: [''],
-      Q11: [''],
+      q1: [''],
+      q2: [''],
+      q3: [''],
+      q4: [''],
+      q5: [''],
+      q6: [''],
+      q7: [''],
+      q8: [''],
+      q9: [''],
+      q10: [''],
+      q11: [''],
       faculty: ['Prof. Dr. Pooja Raundale']
     });
 
     this.HK = this.formBuilder.group({
       ucid: [''],
-      Q1: [''],
-      Q2: [''],
-      Q3: [''],
-      Q4: [''],
-      Q5: [''],
-      Q6: [''],
-      Q7: [''],
-      Q8: [''],
-      Q9: [''],
-      Q10: [''],
-      Q11: [''],
+      q1: [''],
+      q2: [''],
+      q3: [''],
+      q4: [''],
+      q5: [''],
+      q6: [''],
+      q7: [''],
+      q8: [''],
+      q9: [''],
+      q10: [''],
+      q11: [''],
       faculty: ['Prof. Harshil Kanakia']
     });
 
     this.NM = this.formBuilder.group({
       ucid: [''],
-      Q1: [''],
-      Q2: [''],
-      Q3: [''],
-      Q4: [''],
-      Q5: [''],
-      Q6: [''],
-      Q7: [''],
-      Q8: [''],
-      Q9: [''],
-      Q10: [''],
-      Q11: [''],
+      q1: [''],
+      q2: [''],
+      q3: [''],
+      q4: [''],
+      q5: [''],
+      q6: [''],
+      q7: [''],
+      q8: [''],
+      q9: [''],
+      q10: [''],
+      q11: [''],
       faculty: ['Prof. Nikhita Mangaonkar']
     });
 
     this.AK = this.formBuilder.group({
       ucid: [''],
-      Q1: [''],
-      Q2: [''],
-      Q3: [''],
-      Q4: [''],
-      Q5: [''],
-      Q6: [''],
-      Q7: [''],
-      Q8: [''],
-      Q9: [''],
-      Q10: [''],
-      Q11: [''],
+      q1: [''],
+      q2: [''],
+      q3: [''],
+      q4: [''],
+      q5: [''],
+      q6: [''],
+      q7: [''],
+      q8: [''],
+      q9: [''],
+      q10: [''],
+      q11: [''],
       faculty: ['Prof. Aarti Karande']
     });
 
     this.PT = this.formBuilder.group({
       ucid: [''],
-      Q1: [''],
-      Q2: [''],
-      Q3: [''],
-      Q4: [''],
-      Q5: [''],
-      Q6: [''],
-      Q7: [''],
-      Q8: [''],
-      Q9: [''],
-      Q10: [''],
-      Q11: [''],
+      q1: [''],
+      q2: [''],
+      q3: [''],
+      q4: [''],
+      q5: [''],
+      q6: [''],
+      q7: [''],
+      q8: [''],
+      q9: [''],
+      q10: [''],
+      q11: [''],
       faculty: ['Prof. Pallavi Thakur']
     });
 
@@ -135,6 +135,7 @@ export class TeacherFeedbackComponent {
       this.AK_step = true;
     }
     this.step++;
+    document.documentElement.scrollTop = 0;
   }
 
   previous() {
