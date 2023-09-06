@@ -1,5 +1,5 @@
 import sys
-
+import json
 import matplotlib.pyplot as plt
 import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
@@ -15,13 +15,8 @@ def sentiment_analyze(sentiment_text):
     sia = SentimentIntensityAnalyzer()
     score = sia.polarity_scores(sentiment_text)
     logging.info(f"Score: {score}")
+    return score
 
-    if score['neg'] > score['pos']:
-        return "Negative Sentiment"
-    elif score['neg'] < score['pos']:
-        return "Positive Sentiment"
-    else:
-        return "Neutral Sentiment"
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
@@ -30,6 +25,9 @@ if __name__ == "__main__":
 
     input_text = sys.argv[1]
     result = sentiment_analyze(input_text)
+    # Convert the result dictionary to a JSON string
+    result_json = json.dumps(result)
+
     print(result)  # Print the result
 # Example usage:
 # sent_text = "This is a sample text with positive sentiment."
