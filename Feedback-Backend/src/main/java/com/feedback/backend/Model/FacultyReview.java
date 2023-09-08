@@ -3,7 +3,6 @@ package com.feedback.backend.Model;
 
 public class FacultyReview {
     Integer id;
-
 	private long ucid;
 	private Integer q1;
 	private Integer q2;
