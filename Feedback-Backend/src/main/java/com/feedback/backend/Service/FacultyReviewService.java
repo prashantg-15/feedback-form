@@ -124,7 +124,7 @@ public class FacultyReviewService {
 	                facultySubject.setClassName(className);
 	                facultySubject.setFaculty_name(rs.getString("faculty_Name"));
 	                facultySubject.setSubject(rs.getString("subject"));
-	                facultySubject.setIsElective(rs.getInt("isElective"));
+	                facultySubject.setIsElective(rs.getString("isElective"));
 	                facultySubjectsList.add(facultySubject);
 	            }
 	        }

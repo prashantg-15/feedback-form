@@ -5,12 +5,18 @@ public class FacultySubjects {
 	private String className;
 	private String faculty_name;
 	private String subject;
-	private int isElective;
+	private String isElective;
 	public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	public String getIsElective() {
+		return isElective;
+	}
+	public void setIsElective(String isElective) {
+		this.isElective = isElective;
 	}
 	public String getClassName() {
 		return className;
@@ -30,11 +36,6 @@ public class FacultySubjects {
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
-	public int getIsElective() {
-		return isElective;
-	}
-	public void setIsElective(int isElective) {
-		this.isElective = isElective;
-	}
+
 
 }

@@ -28,12 +28,13 @@ CREATE TABLE `FacultyReview` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+drop table FacultySubjects;
 create table FacultySubjects(
    id integer primary key Auto_increment,
    className varchar(15),
    faculty_name varchar(50),
    subject varchar(50),
-   isElective tinyInt
+   isElective varchar(10)
 );
 
 show tables;
@@ -41,26 +42,35 @@ show tables;
 select * from FacultySubjects;
 
 
-INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Harshil Kanakia","DBMS Practical",0);
-INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Pallavi Thakur","Web Technologies Practical",0);
-INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Nikhita Mangaonkar","Software Engineering Practical",0);
-INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Harshil Kanakia","DBMS Theory",0);
-INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Nikhita Mangaonkar","Software Engineering Theory",0);
-INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Sampat Vaidya","Linear Algebra Theory",0);
-INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Harshil Kanakia","Data Structures Practical",0);
-INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Harshil Kanakia","Data Structures Theory",0);
+INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Harshil Kanakia","DBMS Practical","NO");
+INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Pallavi Thakur","Web Technologies Practical","NO");
+INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Nikhita Mangaonkar","Software Engineering Practical","NO");
+INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Harshil Kanakia","DBMS Theory","NO");
+INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Nikhita Mangaonkar","Software Engineering Theory","NO");
+INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Sampat Vaidya","Linear Algebra Theory","NO");
+INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Harshil Kanakia","Data Structures Practical","NO");
+INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Harshil Kanakia","Data Structures Theory","NO");
 
-select * from FeedbackProject.FacultySubjects where className LIKE "%fymca%";
+select * from FeedbackProject.FacultySubjects where className LIKE "%SYMCA%";
 
-INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Harshil Kanakia","DBMS Practical",0);
-INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Pallavi Thakur","Web Technologies Practical",0);
-INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Nikhita Mangaonkar","Software Engineering Practical",0);
-INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Harshil Kanakia","DBMS Theory",0);
-INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Nikhita Mangaonkar","Software Engineering Theory",0);
-INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Sampat Vaidya","Linear Algebra Theory",0);
-INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Harshil Kanakia","Data Structures Practical",0);
-INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Harshil Kanakia","Data Structures Theory",0);
+INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Harshil Kanakia","DBMS Practical","NO");
+INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Pallavi Thakur","Web Technologies Practical","NO");
+INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Nikhita Mangaonkar","Software Engineering Practical","NO");
+INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Harshil Kanakia","DBMS Theory","NO");
+INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Nikhita Mangaonkar","Software Engineering Theory","NO");
+INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Sampat Vaidya","Linear Algebra Theory","NO");
+INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Harshil Kanakia","Data Structures Practical","NO");
+INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Harshil Kanakia","Data Structures Theory","NO");
 
-
-
+INSERT INTO `FeedbackProject`.`FacultySubjects`(`id`,`className`, `faculty_name`,`subject`,`isElective`)VALUES
+('9', 'SYMCA', 'Prof Harshil Kanakia', 'Process Automation Theory', "NO"),
+('10', 'SYMCA', 'Prof Harshil Kanakia', 'Process Automation  Practical', "NO"),
+('11', 'SYMCA', 'Prof Nikhita Mangaonkar', 'Quality Assurance Theory', "YES"),
+('12', 'SYMCA', 'Prof Nikhita Mangaonkar', 'Quality Assurance Practical', "YES"),
+('13', 'SYMCA', 'Prof Sampat Vaidya', 'Probabilty & Statistics Theory', "NO"),
+('14', 'SYMCA', 'Prof Sakina', 'Mobile Programming Practical', "NO"),
+('15', 'SYMCA', 'Dr Aarti Karande', 'Cloud Computing Theory', "YES"),
+('16', 'SYMCA', 'Dr Aarti Karande', 'Cloud Computing Theory', "YES"),
+('17', 'SYMCA', 'Prof Pooja Raundale', 'Computer Graphics Theory', "YES"),
+('18', 'SYMCA', 'Prof Pooja Raundale', 'Computer Graphics Practical',"YES");
 
