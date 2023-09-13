@@ -36,9 +36,9 @@ public class FacultyReviewService {
 		try {
 			conn = DriverManager.getConnection(url, user, password);
 
-			String query= "INSERT INTO FeedbackProject.FacultyReview(ucid,q1,q2,q3,q4,q5,q6,q7,q8,q9,q10,q11,faculty,class_name,FeedBackSentiment,"
-					+ "positive_percentage,negative_percentage,neutral_percentage)VALUES"
-					+ "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+			String query= "INSERT INTO FeedbackProject.FacultyReview(ucid,q1,q2,q3,q4,q5,q6,q7,q8,q9,q10,q11,faculty,className,FeedBackSentiment,"
+					+ "positive_percentage,negative_percentage,neutral_percentage,subject)VALUES"
+					+ "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 			for(FacultyReview facultyReview:facultyReviewList) {
 				// System.out.println(facultyReview.get());
 				JSONObject jsonObject =analyzeSentiment(facultyReview.getQ11());
@@ -68,12 +68,14 @@ public class FacultyReviewService {
 				pst.setInt(11, facultyReview.getQ10());
 				pst.setNString(12, facultyReview.getQ11());
 				pst.setNString(13, facultyReview.getFaculty());
-				pst.setNString(14, facultyReview.getClass_name());
+				pst.setNString(14, facultyReview.getClassName());
 				pst.setNString(15, sentiment);
 				pst.setDouble(16, pos*100);
 				pst.setDouble(17, neg*100);
 				pst.setDouble(18, neu*100);
+				pst.setNString(19, facultyReview.getSubject());
 				flag=pst.executeUpdate();
+				
 			}
 			System.out.println(flag);
 			if(flag==1) {
@@ -124,7 +126,7 @@ public class FacultyReviewService {
 	                facultySubject.setClassName(className);
 	                facultySubject.setFaculty_name(rs.getString("faculty_Name"));
 	                facultySubject.setSubject(rs.getString("subject"));
-	                facultySubject.setIsElective(rs.getInt("isElective"));
+	                facultySubject.setIsElective(rs.getString("isElective"));
 	                facultySubjectsList.add(facultySubject);
 	            }
 	        }

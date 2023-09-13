@@ -20,12 +20,19 @@ public class FacultyReview {
 	private Integer positive_percentage;
 	private Integer negative_percentage;
 	private Integer neutral_percentage;
-	private String class_name;
-	public String getClass_name() {
-		return class_name;
+	private String className;
+	private String subject;
+	public String getClassName() {
+		return className;
 	}
-	public void setClass_name(String class_name) {
-		this.class_name = class_name;
+	public String getSubject() {
+		return subject;
+	}
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+	public void setClassName(String class_name) {
+		this.className = class_name;
 	}
 	public Integer getId() {
 		return id;
