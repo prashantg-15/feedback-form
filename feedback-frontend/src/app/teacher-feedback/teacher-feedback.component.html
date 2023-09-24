@@ -1,998 +1,313 @@
-<div class="formbold-main-wrapper">
+<div class="containAll" *ngIf="loader">
+    <div class="containLoader">
+    <div class="circleGroup circle-1"></div>
+    <div class="circleGroup circle-2"></div>
+    <div class="circleGroup circle-3"></div>
+    <div class="circleGroup circle-4"></div>
+    <div class="circleGroup circle-5"></div>
+    <div class="circleGroup circle-6"></div>
+    <div class="circleGroup circle-7"></div>
+    <div class="circleGroup circle-8"></div>
+    
+    <!-- <div class="innerText">
+        <p>Loading...</p>
+    </div> -->
+</div>
+</div>
+
+<div class="formbold-main-wrapper" *ngIf="!loader">
     <div class="formbold-form-wrapper">
         <div class="heading formbold-mb-6">
             <h1>Teacher Feedback Form <span>(MCA Department)</span></h1>
-            
+
         </div>
         <div class="row">
 
             <!-- Column 1 -->
             <div class="column1">
+
                 <!-- Progress Bar -->
+                <!-- <ul id="progressbar" *ngFor="let item of faculty; let i = index">
+                    <li [ngClass]="[step >= i + 1 ? 'active' : 'inactive', i === 0 ? 'firstItem' : '']">{{ item.subject }}
+                        <div class="facultyName">
+                            <span>{{ item.faculty_name }}</span>
+                        </div>
+                    </li>
+                </ul> -->
+
                 <ul id="progressbar">
+                    <li *ngFor="let item of faculty; let i = index">
+                        {{ item.subject }}
+                        <div class="facultyName">
+                            <span
+                                [ngClass]="[step >= i + 1 ? 'active' : 'inactive', step===i+1 ? 'firstItem' : '', i === faculty.length - 1 ? 'lastItem' : '']">{{
+                                item.faculty_name }}</span>
+                        </div>
+                    </li>
+                </ul>
+
+                <!-- Progress Bar -->
+                <!-- <ul id="progressbar">
                     <li [ngClass]="step>=1 ? 'active' : 'inactive'">Prof. Dr. Pooja Raundale</li>
                     <li class="list2" [ngClass]="step>=2 ? 'active ' : 'inactive'">Prof. Harshil Kanakia</li>
                     <li class="list3" [ngClass]="step>=3 ? 'active ' : 'inactive'">Prof. Nikhita Mangaonkar</li>
                     <li class="list4" [ngClass]="step>=4 ? 'active ' : 'inactive'">Prof. Aarti Karande</li>
                     <li class="list5" [ngClass]="step==5 ? 'active ' : 'inactive'">Prof. Pallavi Thakur</li>
-                    <!-- <li [ngClass]="step==3 ? 'active' : 'inactive'">Nikhita Mangoakar</li> -->
-                </ul>
+                </ul> -->
             </div>
 
             <!-- Column 2 -->
             <div class="column2">
-        
-                <!-- Form 1 -->
-                <form [formGroup]="PR" id="formOne">
-        
+
+                <form *ngFor="let formGroup of itemForms; let i = index;" [formGroup]="formGroup">
                     <!-- Step 1 -->
-                    <div *ngIf="step==1">
+                    <div *ngIf="step == i+1">
+
                         <!-- UCID -->
-                        <div class="formbold-mb-6">
-                            <label for="text" class="formbold-form-label"> UCID <span>(Not Shared)</span> </label>
-                            <input type="text" name="ucid" formControlName="ucid" id="ucid" class="formbold-form-input ucid"/>
+                        <div *ngIf="i == 0" class="formbold-mb-6">
+                            <label for="ucid" class="formbold-form-label">UCID <span>(Not Shared)</span></label>
+                            <div class="ucid-mandatory"><span>*</span></div>
+                            <input type="text" name="ucid" formControlName="ucid" id="ucid"
+                             class="formbold-form-input ucid"/>
                         </div>
-        
+                        <div class="error-msg ucid" *ngIf="nextButtonClicked && formGroup.get('ucid')?.hasError('ucidFormat')">
+                            UCID required
+                        </div>
+
                         <!-- Question 1 -->
-                        <div class="formbold-mb-6">
-                            <label for="q1" class="formbold-form-label"> 1. Subject Knowledge </label>
+                        <div class="formbold-mb-6 mandatory">
+                            <label for="q1" class="formbold-form-label">1. Subject Knowledge <span *ngIf="faculty[i].isElective==='NO'"> *</span></label>
+                            
                             <div class="rate">
+                                <!-- Radio buttons for question 1 -->
+                                <!-- Add more form controls for other questions as needed -->
                                 <input type="radio" id="five1" name="q1" value="5" formControlName="q1" />
                                 <label for="five1"></label>
-                                <input type="radio" id="four1" name="q1" value="4" formControlName="q1"/>
+                                <input type="radio" id="four1" name="q1" value="4" formControlName="q1" />
                                 <label for="four1"></label>
-                                <input type="radio" id="three1" name="q1" value="3" formControlName="q1"/>
+                                <input type="radio" id="three1" name="q1" value="3" formControlName="q1" />
                                 <label for="three1"></label>
-                                <input type="radio" id="two1" name="q1" value="2" forqControlName="q1"/>
+                                <input type="radio" id="two1" name="q1" value="2" formControlName="q1" />
                                 <label for="two1"></label>
-                                <input type="radio" id="one1" name="q1" value="1" formControlName="q1"/>
+                                <input type="radio" id="one1" name="q1" value="1" formControlName="q1" />
                                 <label for="one1"></label>
                             </div>
                         </div>
-        
+                        <div class="error-msg" *ngIf="nextButtonClicked && formGroup.get('q1')?.hasError('qInvalid')">
+                            {{formGroup.get('q1')?.getError('error')}}
+                        </div>
+
                         <!-- Question 2 -->
-                        <div class="formbold-mb-6">
-                            <label for="q2" class="formbold-form-label"> 2. Regularity and Punctuality </label>
+                        <div class="formbold-mb-6 mandatory">
+                            <label for="q2" class="formbold-form-label"> 2. Regularity and Punctuality <span *ngIf="faculty[i].isElective==='NO'"> *</span></label>
                             <div class="rate">
-                                <input type="radio" id="five2" name="q2" value="5" formControlName="q2"/>
+                                <input type="radio" id="five2" name="q2" value="5" formControlName="q2" />
                                 <label for="five2"></label>
-                                <input type="radio" id="four2" name="q2" value="4" formControlName="q2"/>
+                                <input type="radio" id="four2" name="q2" value="4" formControlName="q2" />
                                 <label for="four2"></label>
                                 <input type="radio" id="three2" name="q2" value="3" formControlName="q2" />
                                 <label for="three2"></label>
-                                <input type="radio" id="two2" name="q2" value="2" formControlName="q2"/>
+                                <input type="radio" id="two2" name="q2" value="2" formControlName="q2" />
                                 <label for="two2"></label>
                                 <input type="radio" id="one2" name="q2" value="1" formControlName="q2" />
                                 <label for="one2"></label>
                             </div>
                         </div>
-        
+                        <div class="error-msg" *ngIf="nextButtonClicked && formGroup.get('q2')?.hasError('qInvalid')">
+                            {{formGroup.get('q2')?.getError('error')}}
+                        </div>
+
                         <!-- Question 3 -->
-                        <div class="formbold-mb-6">
-                            <label for="q3" class="formbold-form-label"> 3. Communication Skills </label>
+                        <div class="formbold-mb-6 mandatory">
+                            <label for="q3" class="formbold-form-label"> 3. Communication Skills <span *ngIf="faculty[i].isElective==='NO'"> *</span></label>
                             <div class="rate">
-                                <input type="radio" id="five3" name="q3" value="5" formControlName="q3"/>
+                                <input type="radio" id="five3" name="q3" value="5" formControlName="q3" />
                                 <label for="five3"></label>
-                                <input type="radio" id="four3" name="q3" value="4" formControlName="q3"/>
+                                <input type="radio" id="four3" name="q3" value="4" formControlName="q3" />
                                 <label for="four3"></label>
-                                <input type="radio" id="three3" name="q3" value="3" formControlName="q3"/>
+                                <input type="radio" id="three3" name="q3" value="3" formControlName="q3" />
                                 <label for="three3"></label>
-                                <input type="radio" id="two3" name="q3" value="2" formControlName="q3"/>
+                                <input type="radio" id="two3" name="q3" value="2" formControlName="q3" />
                                 <label for="two3"></label>
-                                <input type="radio" id="one3" name="q3" value="1" formControlName="q3"/>
+                                <input type="radio" id="one3" name="q3" value="1" formControlName="q3" />
                                 <label for="one3"></label>
                             </div>
                         </div>
-        
+                        <div class="error-msg" *ngIf="nextButtonClicked && formGroup.get('q3')?.hasError('qInvalid')">
+                            {{formGroup.get('q3')?.getError('error')}}
+                        </div>
+
                         <!-- Question 4 -->
-                        <div class="formbold-mb-6">
-                            <label for="q4" class="formbold-form-label"> 4. Syllabus Coverage </label>
+                        <div class="formbold-mb-6 mandatory">
+                            <label for="q4" class="formbold-form-label"> 4. Syllabus Coverage <span *ngIf="faculty[i].isElective==='NO'"> *</span></label>
                             <div class="rate">
-                                <input type="radio" id="five4" name="q4" value="5" formControlName="q4"/>
+                                <input type="radio" id="five4" name="q4" value="5" formControlName="q4" />
                                 <label for="five4"></label>
-                                <input type="radio" id="four4" name="q4" value="4" formControlName="q4"/>
+                                <input type="radio" id="four4" name="q4" value="4" formControlName="q4" />
                                 <label for="four4"></label>
-                                <input type="radio" id="three4" name="q4" value="3" formControlName="q4"/>
+                                <input type="radio" id="three4" name="q4" value="3" formControlName="q4" />
                                 <label for="three4"></label>
-                                <input type="radio" id="two4" name="q4" value="2"formControlName="q4" />
+                                <input type="radio" id="two4" name="q4" value="2" formControlName="q4" />
                                 <label for="two4"></label>
-                                <input type="radio" id="one4" name="q4" value="1" formControlName="q4"/>
+                                <input type="radio" id="one4" name="q4" value="1" formControlName="q4" />
                                 <label for="one4"></label>
                             </div>
                         </div>
-        
+                        <div class="error-msg" *ngIf="nextButtonClicked && formGroup.get('q4')?.hasError('qInvalid')">
+                            {{formGroup.get('q4')?.getError('error')}}
+                        </div>
+
                         <!-- Question 5 -->
-                        <div class="formbold-mb-6">
-                            <label for="q5" class="formbold-form-label"> 5. Interest generated in the subject </label>
+                        <div class="formbold-mb-6 mandatory">
+                            <label for="q5" class="formbold-form-label"> 5. Interest generated in the subject <span *ngIf="faculty[i].isElective==='NO'"> *</span></label>
                             <div class="rate">
-                                <input type="radio" id="five5" name="q5" value="5" formControlName="q5"/>
+                                <input type="radio" id="five5" name="q5" value="5" formControlName="q5" />
                                 <label for="five5"></label>
-                                <input type="radio" id="four5" name="q5" value="4" formControlName="q5"/>
+                                <input type="radio" id="four5" name="q5" value="4" formControlName="q5" />
                                 <label for="four5"></label>
-                                <input type="radio" id="three5" name="q5" value="3"formControlName="q5" />
+                                <input type="radio" id="three5" name="q5" value="3" formControlName="q5" />
                                 <label for="three5"></label>
-                                <input type="radio" id="two5" name="q5" value="2" formControlName="q5"/>
+                                <input type="radio" id="two5" name="q5" value="2" formControlName="q5" />
                                 <label for="two5"></label>
-                                <input type="radio" id="one5" name="q5" value="1"formControlName="q5" />
+                                <input type="radio" id="one5" name="q5" value="1" formControlName="q5" />
                                 <label for="one5"></label>
                             </div>
                         </div>
-        
+                        <div class="error-msg" *ngIf="nextButtonClicked && formGroup.get('q5')?.hasError('qInvalid')">
+                            {{formGroup.get('q5')?.getError('error')}}
+                        </div>
+
                         <!-- Question 6 -->
-                        <div class="formbold-mb-6">
-                            <label for="q6" class="formbold-form-label"> 6. Faculty Preparation </label>
+                        <div class="formbold-mb-6 mandatory">
+                            <label for="q6" class="formbold-form-label"> 6. Faculty Preparation <span *ngIf="faculty[i].isElective==='NO'"> *</span></label>
                             <div class="rate">
-                                <input type="radio" id="five6" name="q6" value="5" formControlName="q6"/>
+                                <input type="radio" id="five6" name="q6" value="5" formControlName="q6" />
                                 <label for="five6"></label>
-                                <input type="radio" id="four6" name="q6" value="4" formControlName="q6"/>
+                                <input type="radio" id="four6" name="q6" value="4" formControlName="q6" />
                                 <label for="four6"></label>
-                                <input type="radio" id="three6" name="q6" value="3" formControlName="q6"/>
+                                <input type="radio" id="three6" name="q6" value="3" formControlName="q6" />
                                 <label for="three6"></label>
-                                <input type="radio" id="two6" name="q6" value="2" formControlName="q6"/>
+                                <input type="radio" id="two6" name="q6" value="2" formControlName="q6" />
                                 <label for="two6"></label>
-                                <input type="radio" id="one6" name="q6" value="1" formControlName="q6"/>
+                                <input type="radio" id="one6" name="q6" value="1" formControlName="q6" />
                                 <label for="one6"></label>
                             </div>
                         </div>
-        
+                        <div class="error-msg" *ngIf="nextButtonClicked && formGroup.get('q6')?.hasError('qInvalid')">
+                            {{formGroup.get('q6')?.getError('error')}}
+                        </div>
+
                         <!-- Question 7 -->
-                        <div class="formbold-mb-6">
-                            <label for="q7" class="formbold-form-label"> 7. Overall Acceptance </label>
+                        <div class="formbold-mb-6 mandatory">
+                            <label for="q7" class="formbold-form-label"> 7. Overall Acceptance <span *ngIf="faculty[i].isElective==='NO'"> *</span></label>
                             <div class="rate">
-                                <input type="radio" id="five7" name="q7" value="5" formControlName="q7"/>
+                                <input type="radio" id="five7" name="q7" value="5" formControlName="q7" />
                                 <label for="five7"></label>
-                                <input type="radio" id="four7" name="q7" value="4" formControlName="q7"/>
+                                <input type="radio" id="four7" name="q7" value="4" formControlName="q7" />
                                 <label for="four7"></label>
-                                <input type="radio" id="three7" name="q7" value="3" formControlName="q7"/>
+                                <input type="radio" id="three7" name="q7" value="3" formControlName="q7" />
                                 <label for="three7"></label>
-                                <input type="radio" id="two7" name="q7" value="2" formControlName="q7"/>
+                                <input type="radio" id="two7" name="q7" value="2" formControlName="q7" />
                                 <label for="two7"></label>
-                                <input type="radio" id="one7" name="q7" value="1" formControlName="q7"/>
+                                <input type="radio" id="one7" name="q7" value="1" formControlName="q7" />
                                 <label for="one7"></label>
                             </div>
                         </div>
-        
+                        <div class="error-msg" *ngIf="nextButtonClicked && formGroup.get('q7')?.hasError('qInvalid')">
+                            {{formGroup.get('q7')?.getError('error')}}
+                        </div>
+
                         <!-- Question 8 -->
-                        <div class="formbold-mb-6">
-                            <label for="q8" class="formbold-form-label"> 8. Use of Effective teaching methods </label>
+                        <div class="formbold-mb-6 mandatory">
+                            <label for="q8" class="formbold-form-label"> 8. Use of Effective teaching methods <span *ngIf="faculty[i].isElective==='NO'"> *</span></label>
                             <div class="rate">
-                                <input type="radio" id="five8" name="q8" value="5" formControlName="q8"/>
+                                <input type="radio" id="five8" name="q8" value="5" formControlName="q8" />
                                 <label for="five8"></label>
-                                <input type="radio" id="four8" name="q8" value="4" formControlName="q8"/>
+                                <input type="radio" id="four8" name="q8" value="4" formControlName="q8" />
                                 <label for="four8"></label>
-                                <input type="radio" id="three8" name="q8" value="3" formControlName="q8"/>
+                                <input type="radio" id="three8" name="q8" value="3" formControlName="q8" />
                                 <label for="three8"></label>
-                                <input type="radio" id="two8" name="q8" value="2" formControlName="q8"/>
+                                <input type="radio" id="two8" name="q8" value="2" formControlName="q8" />
                                 <label for="two8"></label>
-                                <input type="radio" id="one8" name="q8" value="1" formControlName="q8"/>
+                                <input type="radio" id="one8" name="q8" value="1" formControlName="q8" />
                                 <label for="one8"></label>
                             </div>
                         </div>
-        
+                        <div class="error-msg" *ngIf="nextButtonClicked && formGroup.get('q8')?.hasError('qInvalid')">
+                            {{formGroup.get('q8')?.getError('error')}}
+                        </div>
+
                         <!-- Question 9 -->
-                        <div class="formbold-mb-6">
-                            <label for="q9" class="formbold-form-label"> 9. Faculty challenges you to think </label>
+                        <div class="formbold-mb-6 mandatory">
+                            <label for="q9" class="formbold-form-label"> 9. Faculty challenges you to think <span *ngIf="faculty[i].isElective==='NO'"> *</span></label>
                             <div class="rate">
-                                <input type="radio" id="five9" name="q9" value="5" formControlName="q9"/>
+                                <input type="radio" id="five9" name="q9" value="5" formControlName="q9" />
                                 <label for="five9"></label>
-                                <input type="radio" id="four9" name="q9" value="4" formControlName="q9"/>
+                                <input type="radio" id="four9" name="q9" value="4" formControlName="q9" />
                                 <label for="four9"></label>
-                                <input type="radio" id="three9" name="q9" value="3" formControlName="q9"/>
+                                <input type="radio" id="three9" name="q9" value="3" formControlName="q9" />
                                 <label for="three9"></label>
-                                <input type="radio" id="two9" name="q9" value="2" formControlName="q9"/>
+                                <input type="radio" id="two9" name="q9" value="2" formControlName="q9" />
                                 <label for="two9"></label>
-                                <input type="radio" id="one9" name="q9" value="1" formControlName="q9"/>
+                                <input type="radio" id="one9" name="q9" value="1" formControlName="q9" />
                                 <label for="one9"></label>
                             </div>
                         </div>
-        
+                        <div class="error-msg" *ngIf="nextButtonClicked && formGroup.get('q9')?.hasError('qInvalid')">
+                            {{formGroup.get('q9')?.getError('error')}}
+                        </div>
+
                         <!-- Question 10 -->
-                        <div class="formbold-mb-6">
-                            <label for="q10" class="formbold-form-label"> 10. Encouragement by faculty to raise questions or
-                                make comments </label>
+                        <div class="formbold-mb-6 mandatory">
+                            <label for="q10" class="formbold-form-label"> 10. Encouragement by faculty to raise
+                                questions or
+                                make comments <span *ngIf="faculty[i].isElective==='NO'"> *</span></label>
                             <div class="rate">
-                                <input type="radio" id="five10" name="q10" value="5" formControlName="q10"/>
+                                <input type="radio" id="five10" name="q10" value="5" formControlName="q10" />
                                 <label for="five10"></label>
-                                <input type="radio" id="four10" name="q10" value="4" formControlName="q10"/>
+                                <input type="radio" id="four10" name="q10" value="4" formControlName="q10" />
                                 <label for="four10"></label>
-                                <input type="radio" id="three10" name="q10" value="3" formControlName="q10"/>
+                                <input type="radio" id="three10" name="q10" value="3" formControlName="q10" />
                                 <label for="three10"></label>
-                                <input type="radio" id="two10" name="q10" value="2" formControlName="q10"/>
+                                <input type="radio" id="two10" name="q10" value="2" formControlName="q10" />
                                 <label for="two10"></label>
-                                <input type="radio" id="one10" name="q10" value="1" formControlName="q10"/>
+                                <input type="radio" id="one10" name="q10" value="1" formControlName="q10" />
                                 <label for="one10"></label>
                             </div>
                         </div>
-        
+                        <div class="error-msg" *ngIf="nextButtonClicked && formGroup.get('q10')?.hasError('qInvalid')">
+                            {{formGroup.get('q10')?.getError('error')}}
+                        </div>
+
                         <!-- Question 11 -->
                         <div class="formbold-mb">
                             <label for="message" class="formbold-form-label">
                                 What should we change in order to live up to your expectations?
                             </label>
-                            <textarea formControlName="q11" rows="6" name="message" id="message" class="formbold-form-input"></textarea>
-                        </div> 
-        
+                            <textarea formControlName="q11" rows="6" name="message" id="message"
+                                class="formbold-form-input"></textarea>
+                        </div>
+
                         <!-- Send Button -->
-                        <div class="button" style="justify-content: end;">
+                        <div *ngIf="i == 0" class="button" style="justify-content: end;">
                             <button (click)="next()" class="btn btn-next formbold-btn">Next</button>
                         </div>
-                        <!-- <object data="../../assets/images/arrow-right.svg"> </object> -->
-                    </div>
-        
-                </form>
-        
-                <!-- Form 2 -->
-                <form [formGroup]="HK" id="formTwo">
-                    <div *ngIf="step==2">
-        
-                        <!-- Question 1 -->
-                        <div class="formbold-mb-6">
-                            <label for="q1" class="formbold-form-label"> 1. Subject Knowledge </label>
-                            <div class="rate">
-                                <input type="radio" id="five1" name="q1" value="5" formControlName="q1"/>
-                                <label for="five1"></label>
-                                <input type="radio" id="four1" name="q1" value="4" formControlName="q1"/>
-                                <label for="four1"></label>
-                                <input type="radio" id="three1" name="q1" value="3" formControlName="q1"/>
-                                <label for="three1"></label>
-                                <input type="radio" id="two1" name="q1" value="2" formControlName="q1"/>
-                                <label for="two1"></label>
-                                <input type="radio" id="one1" name="q1" value="1" formControlName="q1"/>
-                                <label for="one1"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 2 -->
-                        <div class="formbold-mb-6">
-                            <label for="q2" class="formbold-form-label"> 2. Regularity and Punctuality </label>
-                            <div class="rate">
-                                <input type="radio" id="five2" name="q2" value="5" formControlName="q2"/>
-                                <label for="five2"></label>
-                                <input type="radio" id="four2" name="q2" value="4" formControlName="q2"/>
-                                <label for="four2"></label>
-                                <input type="radio" id="three2" name="q2" value="3" formControlName="q2" />
-                                <label for="three2"></label>
-                                <input type="radio" id="two2" name="q2" value="2" formControlName="q2"/>
-                                <label for="two2"></label>
-                                <input type="radio" id="one2" name="q2" value="1" formControlName="q2" />
-                                <label for="one2"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 3 -->
-                        <div class="formbold-mb-6">
-                            <label for="q3" class="formbold-form-label"> 3. Communication Skills </label>
-                            <div class="rate">
-                                <input type="radio" id="five3" name="q3" value="5" formControlName="q3"/>
-                                <label for="five3"></label>
-                                <input type="radio" id="four3" name="q3" value="4" formControlName="q3"/>
-                                <label for="four3"></label>
-                                <input type="radio" id="three3" name="q3" value="3" formControlName="q3"/>
-                                <label for="three3"></label>
-                                <input type="radio" id="two3" name="q3" value="2" formControlName="q3"/>
-                                <label for="two3"></label>
-                                <input type="radio" id="one3" name="q3" value="1" formControlName="q3"/>
-                                <label for="one3"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 4 -->
-                        <div class="formbold-mb-6">
-                            <label for="q4" class="formbold-form-label"> 4. Syllabus Coverage </label>
-                            <div class="rate">
-                                <input type="radio" id="five4" name="q4" value="5" formControlName="q4"/>
-                                <label for="five4"></label>
-                                <input type="radio" id="four4" name="q4" value="4" formControlName="q4"/>
-                                <label for="four4"></label>
-                                <input type="radio" id="three4" name="q4" value="3" formControlName="q4"/>
-                                <label for="three4"></label>
-                                <input type="radio" id="two4" name="q4" value="2"formControlName="q4" />
-                                <label for="two4"></label>
-                                <input type="radio" id="one4" name="q4" value="1" formControlName="q4"/>
-                                <label for="one4"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 5 -->
-                        <div class="formbold-mb-6">
-                            <label for="q5" class="formbold-form-label"> 5. Interest generated in the subject </label>
-                            <div class="rate">
-                                <input type="radio" id="five5" name="q5" value="5" formControlName="q5"/>
-                                <label for="five5"></label>
-                                <input type="radio" id="four5" name="q5" value="4" formControlName="q5"/>
-                                <label for="four5"></label>
-                                <input type="radio" id="three5" name="q5" value="3"formControlName="q5" />
-                                <label for="three5"></label>
-                                <input type="radio" id="two5" name="q5" value="2" formControlName="q5"/>
-                                <label for="two5"></label>
-                                <input type="radio" id="one5" name="q5" value="1"formControlName="q5" />
-                                <label for="one5"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 6 -->
-                        <div class="formbold-mb-6">
-                            <label for="q6" class="formbold-form-label"> 6. Faculty Preparation </label>
-                            <div class="rate">
-                                <input type="radio" id="five6" name="q6" value="5" formControlName="q6"/>
-                                <label for="five6"></label>
-                                <input type="radio" id="four6" name="q6" value="4" formControlName="q6"/>
-                                <label for="four6"></label>
-                                <input type="radio" id="three6" name="q6" value="3" formControlName="q6"/>
-                                <label for="three6"></label>
-                                <input type="radio" id="two6" name="q6" value="2" formControlName="q6"/>
-                                <label for="two6"></label>
-                                <input type="radio" id="one6" name="q6" value="1" formControlName="q6"/>
-                                <label for="one6"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 7 -->
-                        <div class="formbold-mb-6">
-                            <label for="q7" class="formbold-form-label"> 7. Overall Acceptance </label>
-                            <div class="rate">
-                                <input type="radio" id="five7" name="q7" value="5" formControlName="q7"/>
-                                <label for="five7"></label>
-                                <input type="radio" id="four7" name="q7" value="4" formControlName="q7"/>
-                                <label for="four7"></label>
-                                <input type="radio" id="three7" name="q7" value="3" formControlName="q7"/>
-                                <label for="three7"></label>
-                                <input type="radio" id="two7" name="q7" value="2" formControlName="q7"/>
-                                <label for="two7"></label>
-                                <input type="radio" id="one7" name="q7" value="1" formControlName="q7"/>
-                                <label for="one7"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 8 -->
-                        <div class="formbold-mb-6">
-                            <label for="q8" class="formbold-form-label"> 8. Use of Effective teaching methods </label>
-                            <div class="rate">
-                                <input type="radio" id="five8" name="q8" value="5" formControlName="q8"/>
-                                <label for="five8"></label>
-                                <input type="radio" id="four8" name="q8" value="4" formControlName="q8"/>
-                                <label for="four8"></label>
-                                <input type="radio" id="three8" name="q8" value="3" formControlName="q8"/>
-                                <label for="three8"></label>
-                                <input type="radio" id="two8" name="q8" value="2" formControlName="q8"/>
-                                <label for="two8"></label>
-                                <input type="radio" id="one8" name="q8" value="1" formControlName="q8"/>
-                                <label for="one8"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 9 -->
-                        <div class="formbold-mb-6">
-                            <label for="q9" class="formbold-form-label"> 9. Faculty challenges you to think </label>
-                            <div class="rate">
-                                <input type="radio" id="five9" name="q9" value="5" formControlName="q9"/>
-                                <label for="five9"></label>
-                                <input type="radio" id="four9" name="q9" value="4" formControlName="q9"/>
-                                <label for="four9"></label>
-                                <input type="radio" id="three9" name="q9" value="3" formControlName="q9"/>
-                                <label for="three9"></label>
-                                <input type="radio" id="two9" name="q9" value="2" formControlName="q9"/>
-                                <label for="two9"></label>
-                                <input type="radio" id="one9" name="q9" value="1" formControlName="q9"/>
-                                <label for="one9"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 10 -->
-                        <div class="formbold-mb-6">
-                            <label for="q10" class="formbold-form-label"> 10. Encouragement by faculty to raise questions or
-                                make comments </label>
-                            <div class="rate">
-                                <input type="radio" id="five10" name="q10" value="5" formControlName="q10"/>
-                                <label for="five10"></label>
-                                <input type="radio" id="four10" name="q10" value="4" formControlName="q10"/>
-                                <label for="four10"></label>
-                                <input type="radio" id="three10" name="q10" value="3" formControlName="q10"/>
-                                <label for="three10"></label>
-                                <input type="radio" id="two10" name="q10" value="2" formControlName="q10"/>
-                                <label for="two10"></label>
-                                <input type="radio" id="one10" name="q10" value="1" formControlName="q10"/>
-                                <label for="one10"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 11 -->
-                        <div class="formbold-mb">
-                            <label for="message" class="formbold-form-label">
-                                What should we change in order to live up to your expectations?
-                            </label>
-                            <textarea formControlName="q11" rows="6" name="message" id="message" class="formbold-form-input"></textarea>
-                        </div> 
-        
-                        <!-- Send Button -->
-                        <div class="button" style="justify-content: space-between;">
+
+                        <div *ngIf="i>0" class="button" style="justify-content: space-between;">
                             <button (click)="previous()" class="formbold-btn">Back</button>
-                            <button (click)="next()" class="btn btn-next formbold-btn">Next</button>
+                            <button *ngIf="i>0 && i<itemForms.length-1" (click)="next()"
+                                class="btn btn-next formbold-btn">Next</button>
+                            <button *ngIf="i===itemForms.length-1" (click)="submit()"
+                                class="formbold-btn">Submit</button>
                         </div>
-        
                     </div>
                 </form>
 
-                <!-- Form 3 -->
-                <form [formGroup]="NM" id="formThree">
-                    <div *ngIf="step==3">
-        
-                        <!-- Question 1 -->
-                        <div class="formbold-mb-6">
-                            <label for="q1" class="formbold-form-label"> 1. Subject Knowledge </label>
-                            <div class="rate">
-                                <input type="radio" id="five1" name="q1" value="5" formControlName="q1"/>
-                                <label for="five1"></label>
-                                <input type="radio" id="four1" name="q1" value="4" formControlName="q1"/>
-                                <label for="four1"></label>
-                                <input type="radio" id="three1" name="q1" value="3" formControlName="q1"/>
-                                <label for="three1"></label>
-                                <input type="radio" id="two1" name="q1" value="2" formControlName="q1"/>
-                                <label for="two1"></label>
-                                <input type="radio" id="one1" name="q1" value="1" formControlName="q1"/>
-                                <label for="one1"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 2 -->
-                        <div class="formbold-mb-6">
-                            <label for="q2" class="formbold-form-label"> 2. Regularity and Punctuality </label>
-                            <div class="rate">
-                                <input type="radio" id="five2" name="q2" value="5" formControlName="q2"/>
-                                <label for="five2"></label>
-                                <input type="radio" id="four2" name="q2" value="4" formControlName="q2"/>
-                                <label for="four2"></label>
-                                <input type="radio" id="three2" name="q2" value="3" formControlName="q2" />
-                                <label for="three2"></label>
-                                <input type="radio" id="two2" name="q2" value="2" formControlName="q2"/>
-                                <label for="two2"></label>
-                                <input type="radio" id="one2" name="q2" value="1" formControlName="q2" />
-                                <label for="one2"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 3 -->
-                        <div class="formbold-mb-6">
-                            <label for="q3" class="formbold-form-label"> 3. Communication Skills </label>
-                            <div class="rate">
-                                <input type="radio" id="five3" name="q3" value="5" formControlName="q3"/>
-                                <label for="five3"></label>
-                                <input type="radio" id="four3" name="q3" value="4" formControlName="q3"/>
-                                <label for="four3"></label>
-                                <input type="radio" id="three3" name="q3" value="3" formControlName="q3"/>
-                                <label for="three3"></label>
-                                <input type="radio" id="two3" name="q3" value="2" formControlName="q3"/>
-                                <label for="two3"></label>
-                                <input type="radio" id="one3" name="q3" value="1" formControlName="q3"/>
-                                <label for="one3"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 4 -->
-                        <div class="formbold-mb-6">
-                            <label for="q4" class="formbold-form-label"> 4. Syllabus Coverage </label>
-                            <div class="rate">
-                                <input type="radio" id="five4" name="q4" value="5" formControlName="q4"/>
-                                <label for="five4"></label>
-                                <input type="radio" id="four4" name="q4" value="4" formControlName="q4"/>
-                                <label for="four4"></label>
-                                <input type="radio" id="three4" name="q4" value="3" formControlName="q4"/>
-                                <label for="three4"></label>
-                                <input type="radio" id="two4" name="q4" value="2"formControlName="q4" />
-                                <label for="two4"></label>
-                                <input type="radio" id="one4" name="q4" value="1" formControlName="q4"/>
-                                <label for="one4"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 5 -->
-                        <div class="formbold-mb-6">
-                            <label for="q5" class="formbold-form-label"> 5. Interest generated in the subject </label>
-                            <div class="rate">
-                                <input type="radio" id="five5" name="q5" value="5" formControlName="q5"/>
-                                <label for="five5"></label>
-                                <input type="radio" id="four5" name="q5" value="4" formControlName="q5"/>
-                                <label for="four5"></label>
-                                <input type="radio" id="three5" name="q5" value="3"formControlName="q5" />
-                                <label for="three5"></label>
-                                <input type="radio" id="two5" name="q5" value="2" formControlName="q5"/>
-                                <label for="two5"></label>
-                                <input type="radio" id="one5" name="q5" value="1"formControlName="q5" />
-                                <label for="one5"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 6 -->
-                        <div class="formbold-mb-6">
-                            <label for="q6" class="formbold-form-label"> 6. Faculty Preparation </label>
-                            <div class="rate">
-                                <input type="radio" id="five6" name="q6" value="5" formControlName="q6"/>
-                                <label for="five6"></label>
-                                <input type="radio" id="four6" name="q6" value="4" formControlName="q6"/>
-                                <label for="four6"></label>
-                                <input type="radio" id="three6" name="q6" value="3" formControlName="q6"/>
-                                <label for="three6"></label>
-                                <input type="radio" id="two6" name="q6" value="2" formControlName="q6"/>
-                                <label for="two6"></label>
-                                <input type="radio" id="one6" name="q6" value="1" formControlName="q6"/>
-                                <label for="one6"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 7 -->
-                        <div class="formbold-mb-6">
-                            <label for="q7" class="formbold-form-label"> 7. Overall Acceptance </label>
-                            <div class="rate">
-                                <input type="radio" id="five7" name="q7" value="5" formControlName="q7"/>
-                                <label for="five7"></label>
-                                <input type="radio" id="four7" name="q7" value="4" formControlName="q7"/>
-                                <label for="four7"></label>
-                                <input type="radio" id="three7" name="q7" value="3" formControlName="q7"/>
-                                <label for="three7"></label>
-                                <input type="radio" id="two7" name="q7" value="2" formControlName="q7"/>
-                                <label for="two7"></label>
-                                <input type="radio" id="one7" name="q7" value="1" formControlName="q7"/>
-                                <label for="one7"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 8 -->
-                        <div class="formbold-mb-6">
-                            <label for="q8" class="formbold-form-label"> 8. Use of Effective teaching methods </label>
-                            <div class="rate">
-                                <input type="radio" id="five8" name="q8" value="5" formControlName="q8"/>
-                                <label for="five8"></label>
-                                <input type="radio" id="four8" name="q8" value="4" formControlName="q8"/>
-                                <label for="four8"></label>
-                                <input type="radio" id="three8" name="q8" value="3" formControlName="q8"/>
-                                <label for="three8"></label>
-                                <input type="radio" id="two8" name="q8" value="2" formControlName="q8"/>
-                                <label for="two8"></label>
-                                <input type="radio" id="one8" name="q8" value="1" formControlName="q8"/>
-                                <label for="one8"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 9 -->
-                        <div class="formbold-mb-6">
-                            <label for="q9" class="formbold-form-label"> 9. Faculty challenges you to think </label>
-                            <div class="rate">
-                                <input type="radio" id="five9" name="q9" value="5" formControlName="q9"/>
-                                <label for="five9"></label>
-                                <input type="radio" id="four9" name="q9" value="4" formControlName="q9"/>
-                                <label for="four9"></label>
-                                <input type="radio" id="three9" name="q9" value="3" formControlName="q9"/>
-                                <label for="three9"></label>
-                                <input type="radio" id="two9" name="q9" value="2" formControlName="q9"/>
-                                <label for="two9"></label>
-                                <input type="radio" id="one9" name="q9" value="1" formControlName="q9"/>
-                                <label for="one9"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 10 -->
-                        <div class="formbold-mb-6">
-                            <label for="q10" class="formbold-form-label"> 10. Encouragement by faculty to raise questions or
-                                make comments </label>
-                            <div class="rate">
-                                <input type="radio" id="five10" name="q10" value="5" formControlName="q10"/>
-                                <label for="five10"></label>
-                                <input type="radio" id="four10" name="q10" value="4" formControlName="q10"/>
-                                <label for="four10"></label>
-                                <input type="radio" id="three10" name="q10" value="3" formControlName="q10"/>
-                                <label for="three10"></label>
-                                <input type="radio" id="two10" name="q10" value="2" formControlName="q10"/>
-                                <label for="two10"></label>
-                                <input type="radio" id="one10" name="q10" value="1" formControlName="q10"/>
-                                <label for="one10"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 11 -->
-                        <div class="formbold-mb">
-                            <label for="message" class="formbold-form-label">
-                                What should we change in order to live up to your expectations?
-                            </label>
-                            <textarea formControlName="q11" rows="6" name="message" id="message" class="formbold-form-input"></textarea>
-                        </div> 
-        
-                        <!-- Send Button -->
-                        <div class="button" style="justify-content: space-between;">
-                            <button (click)="previous()" class="formbold-btn">Back</button>
-                            <button (click)="next()" class="btn btn-next formbold-btn">Next</button>
-                        </div>
-        
-                    </div>
-                </form>
-
-                <!-- Form 4 -->
-                <form [formGroup]="AK" id="formFour">
-                    <div *ngIf="step==4">
-        
-                        <!-- Question 1 -->
-                        <div class="formbold-mb-6">
-                            <label for="q1" class="formbold-form-label"> 1. Subject Knowledge </label>
-                            <div class="rate">
-                                <input type="radio" id="five1" name="q1" value="5" formControlName="q1"/>
-                                <label for="five1"></label>
-                                <input type="radio" id="four1" name="q1" value="4" formControlName="q1"/>
-                                <label for="four1"></label>
-                                <input type="radio" id="three1" name="q1" value="3" formControlName="q1"/>
-                                <label for="three1"></label>
-                                <input type="radio" id="two1" name="q1" value="2" formControlName="q1"/>
-                                <label for="two1"></label>
-                                <input type="radio" id="one1" name="q1" value="1" formControlName="q1"/>
-                                <label for="one1"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 2 -->
-                        <div class="formbold-mb-6">
-                            <label for="q2" class="formbold-form-label"> 2. Regularity and Punctuality </label>
-                            <div class="rate">
-                                <input type="radio" id="five2" name="q2" value="5" formControlName="q2"/>
-                                <label for="five2"></label>
-                                <input type="radio" id="four2" name="q2" value="4" formControlName="q2"/>
-                                <label for="four2"></label>
-                                <input type="radio" id="three2" name="q2" value="3" formControlName="q2" />
-                                <label for="three2"></label>
-                                <input type="radio" id="two2" name="q2" value="2" formControlName="q2"/>
-                                <label for="two2"></label>
-                                <input type="radio" id="one2" name="q2" value="1" formControlName="q2" />
-                                <label for="one2"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 3 -->
-                        <div class="formbold-mb-6">
-                            <label for="q3" class="formbold-form-label"> 3. Communication Skills </label>
-                            <div class="rate">
-                                <input type="radio" id="five3" name="q3" value="5" formControlName="q3"/>
-                                <label for="five3"></label>
-                                <input type="radio" id="four3" name="q3" value="4" formControlName="q3"/>
-                                <label for="four3"></label>
-                                <input type="radio" id="three3" name="q3" value="3" formControlName="q3"/>
-                                <label for="three3"></label>
-                                <input type="radio" id="two3" name="q3" value="2" formControlName="q3"/>
-                                <label for="two3"></label>
-                                <input type="radio" id="one3" name="q3" value="1" formControlName="q3"/>
-                                <label for="one3"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 4 -->
-                        <div class="formbold-mb-6">
-                            <label for="q4" class="formbold-form-label"> 4. Syllabus Coverage </label>
-                            <div class="rate">
-                                <input type="radio" id="five4" name="q4" value="5" formControlName="q4"/>
-                                <label for="five4"></label>
-                                <input type="radio" id="four4" name="q4" value="4" formControlName="q4"/>
-                                <label for="four4"></label>
-                                <input type="radio" id="three4" name="q4" value="3" formControlName="q4"/>
-                                <label for="three4"></label>
-                                <input type="radio" id="two4" name="q4" value="2"formControlName="q4" />
-                                <label for="two4"></label>
-                                <input type="radio" id="one4" name="q4" value="1" formControlName="q4"/>
-                                <label for="one4"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 5 -->
-                        <div class="formbold-mb-6">
-                            <label for="q5" class="formbold-form-label"> 5. Interest generated in the subject </label>
-                            <div class="rate">
-                                <input type="radio" id="five5" name="q5" value="5" formControlName="q5"/>
-                                <label for="five5"></label>
-                                <input type="radio" id="four5" name="q5" value="4" formControlName="q5"/>
-                                <label for="four5"></label>
-                                <input type="radio" id="three5" name="q5" value="3"formControlName="q5" />
-                                <label for="three5"></label>
-                                <input type="radio" id="two5" name="q5" value="2" formControlName="q5"/>
-                                <label for="two5"></label>
-                                <input type="radio" id="one5" name="q5" value="1"formControlName="q5" />
-                                <label for="one5"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 6 -->
-                        <div class="formbold-mb-6">
-                            <label for="q6" class="formbold-form-label"> 6. Faculty Preparation </label>
-                            <div class="rate">
-                                <input type="radio" id="five6" name="q6" value="5" formControlName="q6"/>
-                                <label for="five6"></label>
-                                <input type="radio" id="four6" name="q6" value="4" formControlName="q6"/>
-                                <label for="four6"></label>
-                                <input type="radio" id="three6" name="q6" value="3" formControlName="q6"/>
-                                <label for="three6"></label>
-                                <input type="radio" id="two6" name="q6" value="2" formControlName="q6"/>
-                                <label for="two6"></label>
-                                <input type="radio" id="one6" name="q6" value="1" formControlName="q6"/>
-                                <label for="one6"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 7 -->
-                        <div class="formbold-mb-6">
-                            <label for="q7" class="formbold-form-label"> 7. Overall Acceptance </label>
-                            <div class="rate">
-                                <input type="radio" id="five7" name="q7" value="5" formControlName="q7"/>
-                                <label for="five7"></label>
-                                <input type="radio" id="four7" name="q7" value="4" formControlName="q7"/>
-                                <label for="four7"></label>
-                                <input type="radio" id="three7" name="q7" value="3" formControlName="q7"/>
-                                <label for="three7"></label>
-                                <input type="radio" id="two7" name="q7" value="2" formControlName="q7"/>
-                                <label for="two7"></label>
-                                <input type="radio" id="one7" name="q7" value="1" formControlName="q7"/>
-                                <label for="one7"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 8 -->
-                        <div class="formbold-mb-6">
-                            <label for="q8" class="formbold-form-label"> 8. Use of Effective teaching methods </label>
-                            <div class="rate">
-                                <input type="radio" id="five8" name="q8" value="5" formControlName="q8"/>
-                                <label for="five8"></label>
-                                <input type="radio" id="four8" name="q8" value="4" formControlName="q8"/>
-                                <label for="four8"></label>
-                                <input type="radio" id="three8" name="q8" value="3" formControlName="q8"/>
-                                <label for="three8"></label>
-                                <input type="radio" id="two8" name="q8" value="2" formControlName="q8"/>
-                                <label for="two8"></label>
-                                <input type="radio" id="one8" name="q8" value="1" formControlName="q8"/>
-                                <label for="one8"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 9 -->
-                        <div class="formbold-mb-6">
-                            <label for="q9" class="formbold-form-label"> 9. Faculty challenges you to think </label>
-                            <div class="rate">
-                                <input type="radio" id="five9" name="q9" value="5" formControlName="q9"/>
-                                <label for="five9"></label>
-                                <input type="radio" id="four9" name="q9" value="4" formControlName="q9"/>
-                                <label for="four9"></label>
-                                <input type="radio" id="three9" name="q9" value="3" formControlName="q9"/>
-                                <label for="three9"></label>
-                                <input type="radio" id="two9" name="q9" value="2" formControlName="q9"/>
-                                <label for="two9"></label>
-                                <input type="radio" id="one9" name="q9" value="1" formControlName="q9"/>
-                                <label for="one9"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 10 -->
-                        <div class="formbold-mb-6">
-                            <label for="q10" class="formbold-form-label"> 10. Encouragement by faculty to raise questions or
-                                make comments </label>
-                            <div class="rate">
-                                <input type="radio" id="five10" name="q10" value="5" formControlName="q10"/>
-                                <label for="five10"></label>
-                                <input type="radio" id="four10" name="q10" value="4" formControlName="q10"/>
-                                <label for="four10"></label>
-                                <input type="radio" id="three10" name="q10" value="3" formControlName="q10"/>
-                                <label for="three10"></label>
-                                <input type="radio" id="two10" name="q10" value="2" formControlName="q10"/>
-                                <label for="two10"></label>
-                                <input type="radio" id="one10" name="q10" value="1" formControlName="q10"/>
-                                <label for="one10"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 11 -->
-                        <div class="formbold-mb">
-                            <label for="message" class="formbold-form-label">
-                                What should we change in order to live up to your expectations?
-                            </label>
-                            <textarea formControlName="q11" rows="6" name="message" id="message" class="formbold-form-input"></textarea>
-                        </div> 
-        
-                        <!-- Send Button -->
-                        <div class="button" style="justify-content: space-between;">
-                            <button (click)="previous()" class="formbold-btn">Back</button>
-                            <button (click)="next()" class="btn btn-next formbold-btn">Next</button>
-                        </div>
-        
-                    </div>
-                </form>
-
-                <!-- Form 5 -->
-                <form [formGroup]="PT" id="formFive">
-                    <div *ngIf="step==5">
-        
-                        <!-- Question 1 -->
-                        <div class="formbold-mb-6">
-                            <label for="q1" class="formbold-form-label"> 1. Subject Knowledge </label>
-                            <div class="rate">
-                                <input type="radio" id="five1" name="q1" value="5" formControlName="q1"/>
-                                <label for="five1"></label>
-                                <input type="radio" id="four1" name="q1" value="4" formControlName="q1"/>
-                                <label for="four1"></label>
-                                <input type="radio" id="three1" name="q1" value="3" formControlName="q1"/>
-                                <label for="three1"></label>
-                                <input type="radio" id="two1" name="q1" value="2" formControlName="q1"/>
-                                <label for="two1"></label>
-                                <input type="radio" id="one1" name="q1" value="1" formControlName="q1"/>
-                                <label for="one1"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 2 -->
-                        <div class="formbold-mb-6">
-                            <label for="q2" class="formbold-form-label"> 2. Regularity and Punctuality </label>
-                            <div class="rate">
-                                <input type="radio" id="five2" name="q2" value="5" formControlName="q2"/>
-                                <label for="five2"></label>
-                                <input type="radio" id="four2" name="q2" value="4" formControlName="q2"/>
-                                <label for="four2"></label>
-                                <input type="radio" id="three2" name="q2" value="3" formControlName="q2" />
-                                <label for="three2"></label>
-                                <input type="radio" id="two2" name="q2" value="2" formControlName="q2"/>
-                                <label for="two2"></label>
-                                <input type="radio" id="one2" name="q2" value="1" formControlName="q2" />
-                                <label for="one2"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 3 -->
-                        <div class="formbold-mb-6">
-                            <label for="q3" class="formbold-form-label"> 3. Communication Skills </label>
-                            <div class="rate">
-                                <input type="radio" id="five3" name="q3" value="5" formControlName="q3"/>
-                                <label for="five3"></label>
-                                <input type="radio" id="four3" name="q3" value="4" formControlName="q3"/>
-                                <label for="four3"></label>
-                                <input type="radio" id="three3" name="q3" value="3" formControlName="q3"/>
-                                <label for="three3"></label>
-                                <input type="radio" id="two3" name="q3" value="2" formControlName="q3"/>
-                                <label for="two3"></label>
-                                <input type="radio" id="one3" name="q3" value="1" formControlName="q3"/>
-                                <label for="one3"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 4 -->
-                        <div class="formbold-mb-6">
-                            <label for="q4" class="formbold-form-label"> 4. Syllabus Coverage </label>
-                            <div class="rate">
-                                <input type="radio" id="five4" name="q4" value="5" formControlName="q4"/>
-                                <label for="five4"></label>
-                                <input type="radio" id="four4" name="q4" value="4" formControlName="q4"/>
-                                <label for="four4"></label>
-                                <input type="radio" id="three4" name="q4" value="3" formControlName="q4"/>
-                                <label for="three4"></label>
-                                <input type="radio" id="two4" name="q4" value="2"formControlName="q4" />
-                                <label for="two4"></label>
-                                <input type="radio" id="one4" name="q4" value="1" formControlName="q4"/>
-                                <label for="one4"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 5 -->
-                        <div class="formbold-mb-6">
-                            <label for="q5" class="formbold-form-label"> 5. Interest generated in the subject </label>
-                            <div class="rate">
-                                <input type="radio" id="five5" name="q5" value="5" formControlName="q5"/>
-                                <label for="five5"></label>
-                                <input type="radio" id="four5" name="q5" value="4" formControlName="q5"/>
-                                <label for="four5"></label>
-                                <input type="radio" id="three5" name="q5" value="3"formControlName="q5" />
-                                <label for="three5"></label>
-                                <input type="radio" id="two5" name="q5" value="2" formControlName="q5"/>
-                                <label for="two5"></label>
-                                <input type="radio" id="one5" name="q5" value="1"formControlName="q5" />
-                                <label for="one5"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 6 -->
-                        <div class="formbold-mb-6">
-                            <label for="q6" class="formbold-form-label"> 6. Faculty Preparation </label>
-                            <div class="rate">
-                                <input type="radio" id="five6" name="q6" value="5" formControlName="q6"/>
-                                <label for="five6"></label>
-                                <input type="radio" id="four6" name="q6" value="4" formControlName="q6"/>
-                                <label for="four6"></label>
-                                <input type="radio" id="three6" name="q6" value="3" formControlName="q6"/>
-                                <label for="three6"></label>
-                                <input type="radio" id="two6" name="q6" value="2" formControlName="q6"/>
-                                <label for="two6"></label>
-                                <input type="radio" id="one6" name="q6" value="1" formControlName="q6"/>
-                                <label for="one6"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 7 -->
-                        <div class="formbold-mb-6">
-                            <label for="q7" class="formbold-form-label"> 7. Overall Acceptance </label>
-                            <div class="rate">
-                                <input type="radio" id="five7" name="q7" value="5" formControlName="q7"/>
-                                <label for="five7"></label>
-                                <input type="radio" id="four7" name="q7" value="4" formControlName="q7"/>
-                                <label for="four7"></label>
-                                <input type="radio" id="three7" name="q7" value="3" formControlName="q7"/>
-                                <label for="three7"></label>
-                                <input type="radio" id="two7" name="q7" value="2" formControlName="q7"/>
-                                <label for="two7"></label>
-                                <input type="radio" id="one7" name="q7" value="1" formControlName="q7"/>
-                                <label for="one7"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 8 -->
-                        <div class="formbold-mb-6">
-                            <label for="q8" class="formbold-form-label"> 8. Use of Effective teaching methods </label>
-                            <div class="rate">
-                                <input type="radio" id="five8" name="q8" value="5" formControlName="q8"/>
-                                <label for="five8"></label>
-                                <input type="radio" id="four8" name="q8" value="4" formControlName="q8"/>
-                                <label for="four8"></label>
-                                <input type="radio" id="three8" name="q8" value="3" formControlName="q8"/>
-                                <label for="three8"></label>
-                                <input type="radio" id="two8" name="q8" value="2" formControlName="q8"/>
-                                <label for="two8"></label>
-                                <input type="radio" id="one8" name="q8" value="1" formControlName="q8"/>
-                                <label for="one8"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 9 -->
-                        <div class="formbold-mb-6">
-                            <label for="q9" class="formbold-form-label"> 9. Faculty challenges you to think </label>
-                            <div class="rate">
-                                <input type="radio" id="five9" name="q9" value="5" formControlName="q9"/>
-                                <label for="five9"></label>
-                                <input type="radio" id="four9" name="q9" value="4" formControlName="q9"/>
-                                <label for="four9"></label>
-                                <input type="radio" id="three9" name="q9" value="3" formControlName="q9"/>
-                                <label for="three9"></label>
-                                <input type="radio" id="two9" name="q9" value="2" formControlName="q9"/>
-                                <label for="two9"></label>
-                                <input type="radio" id="one9" name="q9" value="1" formControlName="q9"/>
-                                <label for="one9"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 10 -->
-                        <div class="formbold-mb-6">
-                            <label for="q10" class="formbold-form-label"> 10. Encouragement by faculty to raise questions or
-                                make comments </label>
-                            <div class="rate">
-                                <input type="radio" id="five10" name="q10" value="5" formControlName="q10"/>
-                                <label for="five10"></label>
-                                <input type="radio" id="four10" name="q10" value="4" formControlName="q10"/>
-                                <label for="four10"></label>
-                                <input type="radio" id="three10" name="q10" value="3" formControlName="q10"/>
-                                <label for="three10"></label>
-                                <input type="radio" id="two10" name="q10" value="2" formControlName="q10"/>
-                                <label for="two10"></label>
-                                <input type="radio" id="one10" name="q10" value="1" formControlName="q10"/>
-                                <label for="one10"></label>
-                            </div>
-                        </div>
-        
-                        <!-- Question 11 -->
-                        <div class="formbold-mb">
-                            <label for="message" class="formbold-form-label">
-                                What should we change in order to live up to your expectations?
-                            </label>
-                            <textarea formControlName="q11" rows="6" name="message" id="message" class="formbold-form-input"></textarea>
-                        </div> 
-        
-                        <!-- Send Button -->
-                        <div class="button" style="justify-content: space-between;">
-                            <button (click)="previous()" class="formbold-btn">Back</button>
-                            <button (click)="submit()" class="formbold-btn">Submit</button>
-                        </div>
-        
-                    </div>
-                </form>
 
             </div>
         </div>
 
-        
+
 
     </div>
 </div>

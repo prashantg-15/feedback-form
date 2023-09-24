@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FacultyService } from '../services/faculty-service.service';
 
 @Component({
   selector: 'app-home-page',
@@ -7,10 +8,12 @@ import { Component } from '@angular/core';
 })
 export class HomePageComponent {
 
-  feedback = "";
-  onClick(feedback: string) {
-    this.feedback = feedback;
-    console.log(this.feedback);
+  constructor(private facultyService: FacultyService) {}
+
+  fy: string = "fymca";
+  sy: string = "symca";
+
+  ngOnInit(): void {
   }
 
 }
