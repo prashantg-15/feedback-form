@@ -9,7 +9,11 @@ $hover-base-color: #0be0ae;
     padding: 48px;
     height: auto;
     // opacity: 0;
-
+    background: linear-gradient(to top,
+    #F5F8FF 0%,
+    #F5F8FF 40%,
+    $hover-base-color 100%,
+    $hover-base-color 100%);
     .formbold-form-wrapper {
         margin: 0 auto;
         max-width: 1350px;

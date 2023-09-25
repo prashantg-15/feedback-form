@@ -1,8 +1,109 @@
-.home-page {
-    height: 100vh;
-    padding-top: 50px;
-    .formbold-btn {
-        margin: 2% 7%;
-        width: 20%;
-    }
+// .home-page {
+//     height: 100vh;
+//     padding-top: 50px;
+//     .formbold-btn {
+//         margin: 2% 7%;
+//         width: 20%;
+//     }
+// }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'poppins', sans-serif;
+}
+
+.hero {
+    width: auto;
+    min-height: 90vh;
+    padding: 10px 10px;
+    overflow: hidden;
+    margin: 0 10%;
+    position: relative;
+}
+
+.logo {
+    height: 60px;
+}
+
+nav {
+    justify-content: space-between;
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+
+}
+
+nav ul li {
+    display: inline-block;
+    list-style: none;
+    margin: 10px 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    //color: #11CFA4;
+    font-weight: 400;
+}
+
+.nav-margin {
+    color: #11CFA4;
+}
+
+.btn-css {
+    //display: inline-block;
+    text-decoration: none;
+    padding: 14px 40px;
+    //color: #64f3d1;
+    background-image: linear-gradient(45deg, #0fb18b, #64f3d1);
+    font-size: 14px;
+    border-radius: 30px;
+    border-top-right-radius: 0;
+    color: black;
+    transition: 0.5s;
+}
+
+.ul-css {
+    display: flex;
+}
+
+.content {
+    margin-top: 10%;
+    max-width: 600px;
+}
+
+.content h1 {
+    font-size: 70px;
+    color: #222;
+}
+
+.content p {
+    margin: 10px 0 30px;
+    color: #333;
+}
+
+.content div {
+    display: flex;
+
+}
+
+.content .btn-css {
+    font-size: 16px;
+    width: 200px;
+    // display: grid;
+    text-align: center;
+    margin-right: 50px;
+}
+
+.btn-css:hover {
+    border-top-right-radius: 30px;
+}
+
+.feature-img {
+    width: 530px;
+    position: absolute;
+    bottom: 0;
+    right: 1%;
+    margin-top: 10%;
+    min-height: 450px;
 }
