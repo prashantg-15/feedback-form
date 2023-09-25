@@ -1,0 +1,32 @@
+[
+    {
+        "className": "FYMCA",
+        "faculty_name": "Prof. Harshil Kanakia",
+        "subject": "DBMS (Theory)",
+        "isElective": "No"
+    },
+    {
+        "className": "FYMCA",
+        "faculty_name": "Prof. Harshil Kanakia",
+        "subject": "DS (Theory)",
+        "isElective": "No"
+    },
+    {
+        "className": "FYMCA",
+        "faculty_name": "Prof. Nikhita Mangoakar",
+        "subject": "Software Engineer (Theory)",
+        "isElective": "No"
+    },
+    {
+        "className": "FYMCA",
+        "faculty_name": "Prof. Pallavi Thakur",
+        "subject": "Web Development (Lab)",
+        "isElective": "No"
+    },
+    {
+        "className": "FYMCA",
+        "faculty_name": "Prof. Aarti Karande",
+        "subject": "Cloud Computing (Theory)",
+        "isElective": "Yes"
+    }
+]

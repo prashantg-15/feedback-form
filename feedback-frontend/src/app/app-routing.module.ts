@@ -10,7 +10,7 @@ const routes: Routes = [
     component: HomePageComponent
   },
   { 
-    path: 'teacher-feedback', 
+    path: 'teacher-feedback/:class', 
     component: TeacherFeedbackComponent 
   },
   { 

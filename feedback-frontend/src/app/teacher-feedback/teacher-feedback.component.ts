@@ -1,172 +1,219 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { FacultySubjects } from '../class/FacultySubjects/faculty-subjects';
+import { FacultyService } from '../services/faculty-service.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
+// import { FacultyReview } from '../class/FacultyReview/faculty-review';
 
 @Component({
   selector: 'app-teacher-feedback',
   templateUrl: './teacher-feedback.component.html',
   styleUrls: ['./teacher-feedback.component.scss']
 })
+
 export class TeacherFeedbackComponent {
 
-  PR!: FormGroup;
-  HK!: FormGroup;
-  NM!: FormGroup;
-  AK!: FormGroup;
-  PT!: FormGroup;
+  loader = true;
 
-  PR_step = false;
-  HK_step = false;
-  NM_step = false;
-  AK_step = false;
-  PT_step = false;
+  private isLoading = new BehaviorSubject<boolean>(false);
+
+  faculty: FacultySubjects[] = [];
+
+  faculty1: any[] = [
+    {subject: 'Math'},
+    {subject: 'Science'}
+  ];
+
+  ucidValidation!: boolean;
+
+  subjectArray: any[] = [];
+
+  itemForms: FormGroup[] = [];
 
   step = 1;
+  nextButtonClicked = false;
+  error:string = "";
   feedback: any = [];
+  param: any = "";
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private facultyService: FacultyService, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
-    this.PR = this.formBuilder.group({
-      ucid: [''],
-      q1: [''],
-      q2: [''],
-      q3: [''],
-      q4: [''],
-      q5: [''],
-      q6: [''],
-      q7: [''],
-      q8: [''],
-      q9: [''],
-      q10: [''],
-      q11: [''],
-      faculty: ['Prof. Dr. Pooja Raundale']
+    this.route.params.subscribe(params => {
+      this.param = params['class'];
     });
+    this.getFacultySubjects();
+  }
 
-    this.HK = this.formBuilder.group({
-      ucid: [''],
-      q1: [''],
-      q2: [''],
-      q3: [''],
-      q4: [''],
-      q5: [''],
-      q6: [''],
-      q7: [''],
-      q8: [''],
-      q9: [''],
-      q10: [''],
-      q11: [''],
-      faculty: ['Prof. Harshil Kanakia']
-    });
+  // ---------- UCID VALIDATION -------------
+  ucidFormatValidator(control: AbstractControl): ValidationErrors | null {
+    const ucidValue = control.value as string;
+    if(!ucidValue) {
+      return { ucidFormat: true, error: "UCID Required" };
+    }
+  
+    // Define a regular expression pattern for UCID format
+    const ucidPattern = /^\d{10}$/;
+  
+    if (!ucidPattern.test(ucidValue)) {
+      // Return a validation error object if the format is not valid
+      return { ucidFormat: true, error: "UCID Required" };
+    }
+  
+    // Return null if the validation passes
+    return null;
+  }
 
-    this.NM = this.formBuilder.group({
-      ucid: [''],
-      q1: [''],
-      q2: [''],
-      q3: [''],
-      q4: [''],
-      q5: [''],
-      q6: [''],
-      q7: [''],
-      q8: [''],
-      q9: [''],
-      q10: [''],
-      q11: [''],
-      faculty: ['Prof. Nikhita Mangaonkar']
-    });
+  // ---------- Q's VALIDATION -------------
+  customQValidator(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+  
+    // Your custom validation logic here
+    if (value === '') {
+      return { qInvalid: true, error: "Rating Required"}; // Add your own validation condition
+    }
+  
+    // Return null if the validation passes
+    return null;
+  }
 
-    this.AK = this.formBuilder.group({
-      ucid: [''],
-      q1: [''],
-      q2: [''],
-      q3: [''],
-      q4: [''],
-      q5: [''],
-      q6: [''],
-      q7: [''],
-      q8: [''],
-      q9: [''],
-      q10: [''],
-      q11: [''],
-      faculty: ['Prof. Aarti Karande']
-    });
+  createItemForms() {
+    this.itemForms = this.faculty.map((item, index) => {
+      const formGroupConfig = {
+        ucid: new FormControl(''),
+        q1: new FormControl(''),
+        q2: new FormControl(''),
+        q3: new FormControl(''),
+        q4: new FormControl(''),
+        q5: new FormControl(''),
+        q6: new FormControl(''),
+        q7: new FormControl(''),
+        q8: new FormControl(''),
+        q9: new FormControl(''),
+        q10: new FormControl(''),
+        q11: new FormControl('')
+        // Add more form controls for other questions as needed
+      };
 
-    this.PT = this.formBuilder.group({
-      ucid: [''],
-      q1: [''],
-      q2: [''],
-      q3: [''],
-      q4: [''],
-      q5: [''],
-      q6: [''],
-      q7: [''],
-      q8: [''],
-      q9: [''],
-      q10: [''],
-      q11: [''],
-      faculty: ['Prof. Pallavi Thakur']
-    });
-
-    this.PR.get('ucid')?.valueChanges.subscribe((newValue) => {
-      this.HK.get('ucid')?.setValue(newValue);
-      this.NM.get('ucid')?.setValue(newValue);
-      this.AK.get('ucid')?.setValue(newValue);
-      this.PT.get('ucid')?.setValue(newValue);
+      if(item.isElective=='NO') {
+        formGroupConfig['q1'].setValidators([Validators.required, this.customQValidator]);
+        formGroupConfig['q2'].setValidators([Validators.required, this.customQValidator]);
+        formGroupConfig['q3'].setValidators([Validators.required, this.customQValidator]);
+        formGroupConfig['q4'].setValidators([Validators.required, this.customQValidator]);
+        formGroupConfig['q5'].setValidators([Validators.required, this.customQValidator]);
+        formGroupConfig['q6'].setValidators([Validators.required, this.customQValidator]);
+        formGroupConfig['q7'].setValidators([Validators.required, this.customQValidator]);
+        formGroupConfig['q8'].setValidators([Validators.required, this.customQValidator]);
+        formGroupConfig['q9'].setValidators([Validators.required, this.customQValidator]);
+        formGroupConfig['q10'].setValidators([Validators.required, this.customQValidator]);
+      }
+  
+      // Apply the UCID validation only for the first form group
+      if (index === 0) {
+        formGroupConfig['ucid'].setValidators([Validators.required, this.ucidFormatValidator]);
+      }
+  
+      return this.formBuilder.group(formGroupConfig);
     });
   }
 
-  get pooja() { return this.PR.controls; }
-  get harshil() { return this.HK.controls; }
-  get nikhita() { return this.NM.controls; }
-  get aarti() { return this.AK.controls; }
-  get pallavi() { return this.PT.controls; }
+  private getFacultySubjects() {
+      // this.facultyService.getFacultySubjects(this.param).subscribe((data) => {
+      //   this.faculty = data;
+      // });
+
+      this.facultyService.getJSON().subscribe((data) => {
+        this.faculty = data;
+      })
+
+      setTimeout(() => {
+        this.createItemForms();
+        this.loader = false;
+      }, 3000);      
+  }
 
   next() {
-    if (this.step == 1) {
-      this.PR_step = true;
-      // if (this.HK.invalid) { return }
+    this.nextButtonClicked = true;
+    const activeFormGroup = this.itemForms[this.step-1];
+    console.log(this.itemForms[this.step-1]);
+    if (activeFormGroup.valid) {
+      if (this.step <= this.itemForms.length - 1) {
+        this.step++;
+        this.nextButtonClicked = false;
+        console.log('Active form is valid');
+      }
+    } else {
+      // Form is invalid, you can display an error message or handle it as needed
+      console.log('Active form is invalid');
     }
-    else if (this.step == 2) {
-      this.HK_step = true;
-    }
-    else if (this.step == 3) {
-      this.NM_step = true;
-    }
-    else if (this.step == 4) {
-      this.AK_step = true;
-    }
-    this.step++;
     document.documentElement.scrollTop = 0;
+    // this.mergeFormGroups();
   }
 
   previous() {
     this.step--;
-    if (this.step == 1) {
-      this.HK_step = false;
-    }
-    else if (this.step == 2) {
-      this.NM_step = false;
-    }
-    else if (this.step == 3) {
-      this.AK_step = false;
-    }
-    else if (this.step == 4) {
-      this.PT_step = false;
-    }
   }
 
   submit() {
-    if (this.step == 5) {
-      this.PT_step = true;
-      // if (this.educationalDetails.invalid) { return }
-      this.feedback.push(this.PR.value);
-      this.feedback.push(this.HK.value);
-      this.feedback.push(this.NM.value);
-      this.feedback.push(this.AK.value);
-      this.feedback.push(this.PT.value);
-      console.log(JSON.stringify(this.feedback));
+    this.nextButtonClicked = true;
+    const activeFormGroup = this.itemForms[this.step-1];
+    console.log(this.itemForms[this.step-1]);
+    if (activeFormGroup.valid) {
+      if (this.step <= this.itemForms.length) {
+        // this.step++;
+        this.nextButtonClicked = false;
+        console.log('Active form is valid');
+        this.mergeFormGroups();
+      }
+    } else {
+      // Form is invalid, you can display an error message or handle it as needed
+      console.log('Active form is invalid');
     }
   }
 
-  
+  mergedData: any[] = [];
+
+  mergeFormGroups(): void {
+    this.mergedData = this.itemForms.map((formGroup, index) => {
+      const formValue = formGroup.value;
+      if(formValue.q1 === '' || formValue.q2 === '' || formValue.q3 === '' || formValue.q4 === '' || formValue.q5 === '' ||
+        formValue.q6 === '' || formValue.q7 === '' || formValue.q8 === '' || formValue.q5 === '' || formValue.q10 === '') {
+        return null;
+      }
+      return {
+        subject: this.faculty[index].subject,
+        ucid: this.itemForms[0].value['ucid'],
+        q1: formValue.q1,
+        q2: formValue.q2,
+        q3: formValue.q3,
+        q4: formValue.q4,
+        q5: formValue.q5,
+        q6: formValue.q6,
+        q7: formValue.q7,
+        q8: formValue.q8,
+        q9: formValue.q9,
+        q10: formValue.q10,
+        q11: formValue.q11,
+        faculty: this.faculty[index].faculty_name,
+        className: this.faculty[index].className
+        // Add more properties as needed for other form controls
+      };
+      
+    }).filter(item => item !== null);
+    
+
+    // Now, mergedData contains the merged objects
+    console.log(JSON.stringify(this.mergedData));
+
+    this.facultyService.facultyReview(JSON.stringify(this.mergedData)).subscribe(() => {
+      this.goToHomePage();
+    })
+    
+  }
+
+  goToHomePage() {
+    this.router.navigate(['']);
+  }
 
 }

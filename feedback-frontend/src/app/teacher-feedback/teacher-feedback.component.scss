@@ -8,6 +8,7 @@ $hover-base-color: #0be0ae;
     justify-content: center;
     padding: 48px;
     height: auto;
+    // opacity: 0;
 
     .formbold-form-wrapper {
         margin: 0 auto;
@@ -30,16 +31,58 @@ $hover-base-color: #0be0ae;
             display: flex;
             border-top: 1px solid #dde3ec;
 
+            .error-msg {
+                color: red;
+                margin-bottom: 15px;
+                margin-top: -40px;
+                // margin-left: 15px;
+                font-size: 13px;
+                font-weight: 500;
+
+                &.ucid {
+                    margin-top: -20px;
+                    margin-left: 105px;
+                }
+            }
+
             .column1 {
                 width: 30%;
                 border-right: 1px solid #dde3ec;
-                padding: 45px 25px 0 25px;
+                padding: 45px 25px 0 0;
             }
 
             .column2 {
                 width: 70%;
                 padding-left: 45px;
                 padding-top: 45px;
+
+                .ucid-mandatory {
+                    position: relative;
+
+                    span {
+                        position: absolute;
+                        right: 55px;
+                        bottom: 10px;
+                        color: red;
+                        font-size: 12px;
+                    }
+                }
+
+                .text-mandatory {
+                    position: relative;
+
+                    span {
+                        position: absolute;
+                        top: -2px;
+                        right: 291px;
+                        color: red;
+                        font-size: 12px;
+                    }
+                }
+
+                .text-box {
+                    margin-top: 0;
+                }
             }
         }
     }
@@ -98,6 +141,17 @@ $hover-base-color: #0be0ae;
         align-items: center;
         justify-content: space-between;
     }
+
+    .mandatory {
+        position: relative;
+
+        span {
+            position: absolute;
+            color: red;
+            margin-left: 2px;
+            top: 9px;
+        }
+    }
 }
 
 .button {
@@ -125,7 +179,7 @@ $hover-base-color: #0be0ae;
         &:hover {
             background-color: $hover-base-color;
         }
-        
+
         object {
             width: 23px;
         }
@@ -258,63 +312,163 @@ $hover-base-color: #0be0ae;
     font-weight: 500;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 
+    .facultyName {
+        margin-top: 5px;
+
+        span {
+            font-size: 13px;
+            color: #536387;
+            font-weight: 500;
+        }
+    }
+
+
     &.active {
         // box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
         box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     }
 
-    &.list2:after {
-        top: 28px;
-    }
-    &.list3:after {
-        top: 128px;
-    }
-    &.list4:after {
-        top: 228px;
-    }
-    &.list5:after {
-        top: 328px;
-    }
+    // &.list2:after {
+    //     top: 28px;
+    // }
+
+    // &.list3:after {
+    //     top: 128px;
+    // }
+
+    // &.list4:after {
+    //     top: 228px;
+    // }
+
+    // &.list5:after {
+    //     top: 328px;
+    // }
 }
 
-#progressbar li:before {
+#progressbar li span:before {
     content: '';
-    width: 14px;
-    height: 14px;
+    width: 16px;
+    height: 16px;
     display: block;
     border-radius: 50%;
     z-index: 2;
     left: 25px;
     position: absolute;
-    margin-top: 3px;
+    margin-top: -11px;
 }
 
 /*progressbar connectors*/
-#progressbar li:after {
+#progressbar li span:after {
     content: '';
     width: 3px;
-    height: 20%;
+    height: 120px;
     background: #dde3ec;
     position: absolute;
-    left: 30px;
+    left: 31px;
     // top: 33px;
     z-index: 1;
 }
 
-#progressbar li:first-child:after {
+#progressbar li span.lastItem:after {
     /*connector not needed before the first step*/
     content: none;
 }
 
+// #progressbar li span:first-of-type:after {
+//     display: none;
+// }
+
 /*marking active/completed steps green*/
 /*The number of the step and the connector before it = green*/
-#progressbar li.active:before,
-#progressbar li.active:after {
+#progressbar li span.active:before,
+#progressbar li span.active:after {
     background: $base-color;
     color: white;
 }
 
-#progressbar li.inactive:before {
+#progressbar li span.inactive:before,
+#progressbar li span.firstItem:after {
     background: #dde3ec;
     color: #000;
+}
+
+/* loading.component.css */
+.containAll {
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+
+    .containLoader {
+        position: relative;
+        height: 60px;
+        width: 60px;
+        margin: auto;
+        margin-top: 295px;
+
+        .circleGroup {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+        }
+
+        @for $i from 1 through 8 {
+            .circle-#{$i} {
+                border: 7px solid rgb(0, 255, 153);
+                // border: 10px solid black;
+                border-radius: 50%;
+                box-sizing: border-box;
+                border-right: 7px solid transparent;
+                border-bottom: 7px solid transparent;
+                border-left: 7px solid transparent;
+                -webkit-animation: rotate 1.2s cubic-bezier(0, .58, 1, .30) infinite;
+                -moz-animation: rotate 1.2s cubic-bezier(0, .58, 1, .30) infinite;
+                -o-animation: rotate 1.2s cubic-bezier(0, .58, 1, .30) infinite;
+                animation: rotate 1.2s cubic-bezier(0, .58, 1, .30) infinite;
+
+                -webkit-animation-delay: 30ms * $i;
+                -moz-animation-delay: 30ms * $i;
+                -o-animation-delay: 30ms * $i;
+                animation-delay: 30ms * $i;
+            }
+        }
+
+        .innerText {
+            position: absolute;
+            // font-family: $quick;
+            color: white;
+            bottom: -40px;
+            animation: flash 1.2s ease-in-out infinite;
+            pointer-events: none;
+        }
+    }
+}
+
+@keyframes rotate {
+    50% {
+        border: 1px solid rgb(0, 255, 153);
+        border-right: 1px solid transparent;
+        border-bottom: 1px solid transparent;
+        border-left: 1px solid transparent;
+    }
+
+    100% {
+        transform: rotatez(360deg);
+    }
+}
+
+@keyframes flash {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
 }
