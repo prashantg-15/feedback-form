@@ -39,7 +39,7 @@ create table FacultySubjects(
 
 show tables;
 
-select * from FacultySubjects;
+select * from FacultyReview ;
 
 
 INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Harshil Kanakia","DBMS Practical","NO");
@@ -57,7 +57,7 @@ INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`sub
 INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Pallavi Thakur","Web Technologies Practical","NO");
 INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Nikhita Mangaonkar","Software Engineering Practical","NO");
 INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Harshil Kanakia","DBMS Theory","NO");
-INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Nikhita Mangaonkar","Software Engineering Theory","NO");
+INSERT INTO `FeedbackProject`.`FaFacultySubjectscultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Nikhita Mangaonkar","Software Engineering Theory","NO");
 INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Sampat Vaidya","Linear Algebra Theory","NO");
 INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Harshil Kanakia","Data Structures Practical","NO");
 INSERT INTO `FeedbackProject`.`FacultySubjects`(`className`, `faculty_name`,`subject`,`isElective`)VALUES("FYMCA","Prof Harshil Kanakia","Data Structures Theory","NO");
@@ -73,4 +73,27 @@ INSERT INTO `FeedbackProject`.`FacultySubjects`(`id`,`className`, `faculty_name`
 ('16', 'SYMCA', 'Dr Aarti Karande', 'Cloud Computing Theory', "YES"),
 ('17', 'SYMCA', 'Prof Pooja Raundale', 'Computer Graphics Theory', "YES"),
 ('18', 'SYMCA', 'Prof Pooja Raundale', 'Computer Graphics Practical',"YES");
+
+
+
+desc FacultyReview;
+
+ALter table FacultyReview add column subject varchar(50);
+Alter table FacultyReview change class_name  className varchar(50);
+truncate table FacultyReview;
+ALTER TABLE Faculty_Subjects  RENAME TO FacultySubjects;
+
+select * from FacultyReview;
+
+create table LoginDetails(
+   id integer primary key Auto_increment,
+   username varchar(20),
+   password varchar(20)
+);
+INSERT INTO `FeedbackProject`.`LoginDetails`(`username`,`password`)
+VALUES
+('HarshilKanakia','12345678'),('sakshiN','sakshi85'),('prashantG','drStrange#4');
+
+select * from LoginDetails;
+
 
