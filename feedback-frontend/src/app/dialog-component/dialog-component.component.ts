@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { DialogService } from '../services/general/dialog-service.service';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, NgForm, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FacultyService } from '../services/restAPI/faculty-service.service';
 
 @Component({
   selector: 'app-dialog-component',
@@ -9,54 +10,50 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./dialog-component.component.scss']
 })
 export class DialogComponentComponent {
-  
-  LoginForm: FormGroup;
 
-  constructor(public service: DialogService, private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router) {
-    this.LoginForm = this.formBuilder.group({
-      username: [''],
-      password: ['']
-    });
-  }
+  constructor(public service: DialogService, private facultyService: FacultyService, private router: Router) { }
 
   ngOnInit() {
-    
+
   }
 
-  // usernameValidator(): ValidatorFn {
-  //   return (control: AbstractControl): { [key: string]: any } | null => {
-  //     const username = control.value as string;
-  //     if (username.length < minLength) {
-  //       return { 'usernameInvalid': true };
-  //     }
-  //     return null;
-  //   };
-  // }
+  formData: any = {}; // Object to store form data
+  usernameError: any = '';
+  passwordError: any = '';
+  result: any = '';
 
-  // usernameValidator(control: AbstractControl): ValidationErrors | null {
-  //   const username = control.value as string;
-  //   if(!username) {
-  //     return { usernameFormat: true, error: "Username Required" };
-  //   }
-
-  //   if(!)
-  
-  //   // Return null if the validation passes
-  //   return null;
-  // }
-
+  // Method to handle form submission
   onSubmit() {
-    // if (this.LoginForm.valid) {
-    //   const username = this.LoginForm.get('username')?.value;
-    //   const password = this.LoginForm.get('password')?.value;
-
-    //   // Now you can use 'username' and 'password' variables for your data processing or API call.
-    //   console.log('Username:', username);
-    //   console.log('Password:', password);
-
-    //   // You can make an API request or perform other actions with the data here.
-    // }
-    this.router.navigate(['feedbackSummary']);
+    if (this.formData.username && this.formData.password) {
+      // Your login logic here
+      this.facultyService.loginValidation(this.formData).subscribe({
+        next: (response) => {
+          // You can process the response data as needed
+          const jsonResponse = JSON.parse(response)
+          console.log(response.reault);
+          if (response && jsonResponse.result === 'success') {
+            this.router.navigate(['feedbackSummary']);
+          } else {
+            this.usernameError = "Please enter correct username";
+            this.passwordError = "Please enter correct password";
+          }
+        },
+        error: (error) => {
+          console.log("Error : " + error);
+        }
+      })
+    }
+    else if (this.formData.username === '') {
+      this.usernameError = "Please enter correct username";
+    }
+    else if (this.formData.password === '') {
+      this.passwordError = "Please Enter Correct Password"
+    }
+    else {
+      // Handle validation errors or show a message to the user
+      this.usernameError = "Please enter correct username";
+      this.passwordError = "Please Enter Correct Password";
+    }
   }
 
 }

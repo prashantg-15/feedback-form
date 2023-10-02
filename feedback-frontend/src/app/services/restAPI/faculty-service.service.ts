@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, ObservableLike, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { FacultySubjects } from 'src/app/class/FacultySubjects/faculty-subjects';
 
 @Injectable({
@@ -13,7 +13,7 @@ export class FacultyService {
   private postURL = "http://localhost:8080/facultyReview";
   private getSub = "http://localhost:8080/feedbackSummary";
   private chartURL = "../../assets/chart.json";
-  private login = "../../assets/login.json";
+  private login = "http://localhost:8080/login";
 
   public feedbackTitle = [
     'Subject Knowledge',
@@ -59,9 +59,9 @@ export class FacultyService {
     return this.feedbackTitle;
   }
 
-  // loginValidation(data: any): Observable<any> {
-  //   const headers = new HttpHeaders().set('Content-Type', 'application/json');
-  //   return this.http.post(`${this.login}`, data, { headers, responseType: 'text' });
-  // }
+  loginValidation(data: any): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.post(`${this.login}`, data, { headers, responseType: 'text' });
+  }
 
 }

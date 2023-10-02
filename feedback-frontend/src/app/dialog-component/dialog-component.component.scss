@@ -30,9 +30,18 @@
         display: flex;
         flex-direction: column;
 
+        .error-msg {
+            color: red;
+            margin-left: 3px px;
+            margin-bottom: 20px;
+            margin-top: -26px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
         .mandatory {
             position: relative;
-    
+
             span {
                 position: absolute;
                 color: red;
@@ -86,9 +95,9 @@
                 text-decoration: none;
                 font-size: 14px;
                 padding-right: 5px;
-            }    
+            }
         }
-        
+
         .button {
             display: flex;
             justify-content: space-between;
