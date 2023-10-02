@@ -1,0 +1,30 @@
+<div id="overlay" (click)="service.showDialog=false"></div>
+
+<div class="container">
+        <h1>Log In</h1>
+        <div class="form" [formGroup]="LoginForm">
+            <div class="formbold-mb-6 mandatory">
+                <label for="ucid" class="formbold-form-label">Username <span>*</span></label>
+                <input type="text" name="username" id="username" formControlName="username" class="formbold-form-input ucid" />
+            </div>
+            <!-- <div class="error-msg" *ngIf="nextButtonClicked && formGroup.get('q1')?.hasError('qInvalid')">
+                {{formGroup.get('q1')?.getError('error')}}
+            </div> -->
+
+            <div class="formbold-mb-6 mandatory" style="margin-bottom: 20px;">
+                <label for="ucid" class="formbold-form-label">Password <span>*</span></label>
+                <input type="password" name="password" id="password" formControlName="password" class="formbold-form-input ucid" />
+            </div>
+            <!-- <div class="error-msg" *ngIf="nextButtonClicked && formGroup.get('q1')?.hasError('qInvalid')">
+                {{formGroup.get('q1')?.getError('error')}}
+            </div> -->
+
+            <div class="link">
+                <a href="#" class="formbold-form-label">Forget Password?</a>
+            </div>
+
+            <div class="button">
+                <button class="btn btn-next formbold-btn" (click)="onSubmit()">Log In</button>
+            </div>
+        </div>
+</div>

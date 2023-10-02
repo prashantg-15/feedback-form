@@ -1,0 +1,222 @@
+{
+    "q1": [
+        {
+            "stars": 1,
+            "rating": 2
+        },
+        {
+            "stars": 2,
+            "rating": 4
+        },
+        {
+            "stars": 3,
+            "rating": 10
+        },
+        {
+            "stars": 4,
+            "rating": 13
+        },
+        {
+            "stars": 5,
+            "rating": 30
+        }
+    ],
+    "q2": [
+        {
+            "stars": 1,
+            "rating": 8
+        },
+        {
+            "stars": 2,
+            "rating": 3
+        },
+        {
+            "stars": 3,
+            "rating": 10
+        },
+        {
+            "stars": 4,
+            "rating": 15
+        },
+        {
+            "stars": 5,
+            "rating": 20
+        }
+    ],
+    "q3": [
+        {
+            "stars": 1,
+            "rating": 2
+        },
+        {
+            "stars": 2,
+            "rating": 4
+        },
+        {
+            "stars": 3,
+            "rating": 10
+        },
+        {
+            "stars": 4,
+            "rating": 13
+        },
+        {
+            "stars": 5,
+            "rating": 30
+        }
+    ],
+    "q4": [
+        {
+            "stars": 1,
+            "rating": 2
+        },
+        {
+            "stars": 2,
+            "rating": 4
+        },
+        {
+            "stars": 3,
+            "rating": 10
+        },
+        {
+            "stars": 4,
+            "rating": 13
+        },
+        {
+            "stars": 5,
+            "rating": 30
+        }
+    ],
+    "q5": [
+        {
+            "stars": 1,
+            "rating": 2
+        },
+        {
+            "stars": 2,
+            "rating": 4
+        },
+        {
+            "stars": 3,
+            "rating": 10
+        },
+        {
+            "stars": 4,
+            "rating": 13
+        },
+        {
+            "stars": 5,
+            "rating": 30
+        }
+    ],
+    "q6": [
+        {
+            "stars": 1,
+            "rating": 2
+        },
+        {
+            "stars": 2,
+            "rating": 4
+        },
+        {
+            "stars": 3,
+            "rating": 10
+        },
+        {
+            "stars": 4,
+            "rating": 13
+        },
+        {
+            "stars": 5,
+            "rating": 30
+        }
+    ],
+    "q7": [
+        {
+            "stars": 1,
+            "rating": 2
+        },
+        {
+            "stars": 2,
+            "rating": 4
+        },
+        {
+            "stars": 3,
+            "rating": 10
+        },
+        {
+            "stars": 4,
+            "rating": 13
+        },
+        {
+            "stars": 5,
+            "rating": 30
+        }
+    ],
+    "q8": [
+        {
+            "stars": 1,
+            "rating": 2
+        },
+        {
+            "stars": 2,
+            "rating": 4
+        },
+        {
+            "stars": 3,
+            "rating": 10
+        },
+        {
+            "stars": 4,
+            "rating": 13
+        },
+        {
+            "stars": 5,
+            "rating": 30
+        }
+    ],
+    "q9": [
+        {
+            "stars": 1,
+            "rating": 2
+        },
+        {
+            "stars": 2,
+            "rating": 4
+        },
+        {
+            "stars": 3,
+            "rating": 10
+        },
+        {
+            "stars": 4,
+            "rating": 13
+        },
+        {
+            "stars": 5,
+            "rating": 30
+        }
+    ],
+    "q10": [
+        {
+            "stars": 1,
+            "rating": 2
+        },
+        {
+            "stars": 2,
+            "rating": 4
+        },
+        {
+            "stars": 3,
+            "rating": 10
+        },
+        {
+            "stars": 4,
+            "rating": 13
+        },
+        {
+            "stars": 5,
+            "rating": 30
+        }
+    ]
+}

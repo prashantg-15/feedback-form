@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { FacultySubjects } from '../class/FacultySubjects/faculty-subjects';
-import { FacultyService } from '../services/faculty-service.service';
+import { FacultyService } from '../services/restAPI/faculty-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-// import { FacultyReview } from '../class/FacultyReview/faculty-review';
 
 @Component({
   selector: 'app-teacher-feedback',

@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomePageComponent } from './home-page/home-page.component';
 import { TeacherFeedbackComponent } from './teacher-feedback/teacher-feedback.component';
-import { CurriculumFeedbackComponent } from './curriculum-feedback/curriculum-feedback.component';
+import { DialogComponentComponent } from './dialog-component/dialog-component.component';
+import { FeedbackSummaryComponent } from './feedback-summary/feedback-summary.component';
 
 const routes: Routes = [
   { 
@@ -13,10 +14,14 @@ const routes: Routes = [
     path: 'teacher-feedback/:class', 
     component: TeacherFeedbackComponent 
   },
-  { 
-    path: 'curriculum-feedback', 
-    component: CurriculumFeedbackComponent 
+  {
+    path: 'dialogService',
+    component: DialogComponentComponent
   },
+  {
+    path: 'feedbackSummary',
+    component: FeedbackSummaryComponent
+  }
 ];
 
 @NgModule({

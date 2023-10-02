@@ -2,34 +2,36 @@
     <button [routerLink]="['/teacher-feedback',fy]" class="formbold-btn">FYMCA</button> <br>
     <button [routerLink]="['/teacher-feedback',sy]" class="formbold-btn">SYMCA</button>
 </div> -->
+<app-dialog-component *ngIf="service.showDialog"></app-dialog-component>
+
 <div class="hero">
-    <nav>
-      <img src="../../assets/images/logo.png" alt="logo" class="logo">
-      <div class="ul-css">
-        <ul class="nav-margin">
-          <li><a href="">Contact Us</a></li>
-          <li><a href="">How It Works</a></li>
-          <li><a href="">About us</a></li>
-        </ul>
-        <div>
-          <ul>
-            <li><a href="" class="btn-css">LOGIN</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-    <div class="content">
-      <h1> Your FEEDBACK <br> Matters To Us</h1>
-      <p> SpireMetrics is a project dedicated to analyzing feedback provided by students enrolled in the Master
-        of Computer Applications (MCA) program. This initiative aims to gain valuable insights into students'
-        opinions and sentiments regarding their academic experiences, allowing for data-driven improvements and
-        enhancements to the program's quality and effectiveness.</p>
+  <nav>
+    <img src="../../assets/images/logo.png" alt="logo" class="logo">
+    <div class="ul-css">
+      <ul class="nav-margin">
+        <li><a href="">Contact Us</a></li>
+        <li><a href="">How It Works</a></li>
+        <li><a href="">About us</a></li>
+      </ul>
       <div>
-        <a href="#" [routerLink]="['/teacher-feedback',fy]" class="btn-css">FYMCA</a><br>
-        <a href="#" [routerLink]="['/teacher-feedback',sy]" class="btn-css">SYMCA</a>
+        <ul>
+          <button class="btn-css" (click)="service.showDialog = true">Login</button>
+          <li><a href=""  >LOGIN</a></li>
+        </ul>
       </div>
-
     </div>
-    <img src="../../assets/images/1.jpg" alt="main-img" class="feature-img">
-  </div>
+  </nav>
+  <div class="content">
+    <h1> Your FEEDBACK <br> Matters To Us</h1>
+    <p> SpireMetrics is a project dedicated to analyzing feedback provided by students enrolled in the Master
+      of Computer Applications (MCA) program. This initiative aims to gain valuable insights into students'
+      opinions and sentiments regarding their academic experiences, allowing for data-driven improvements and
+      enhancements to the program's quality and effectiveness.</p>
+    <div>
+      <a href="#" [routerLink]="['/teacher-feedback',fy]" class="btn-css">FYMCA</a><br>
+      <a href="#" [routerLink]="['/teacher-feedback',sy]" class="btn-css">SYMCA</a>
+    </div>
 
+  </div>
+  <img src="../../assets/images/1.jpg" alt="main-img" class="feature-img">
+</div>
