@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { FacultyService } from '../services/faculty-service.service';
+import { FacultyService } from '../services/restAPI/faculty-service.service';
+import { DialogService } from '../services/general/dialog-service.service';
 
 @Component({
   selector: 'app-home-page',
@@ -8,7 +9,7 @@ import { FacultyService } from '../services/faculty-service.service';
 })
 export class HomePageComponent {
 
-  constructor(private facultyService: FacultyService) {}
+  constructor(private facultyService: FacultyService, public service: DialogService) {}
 
   fy: string = "fymca";
   sy: string = "symca";

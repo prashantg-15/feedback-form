@@ -1,0 +1,62 @@
+<div id="overlay" (click)="service.showDialog=false"></div>
+
+<div class="container">
+    <h1>Log In</h1>
+    <!-- <form (ngSubmit)="onSubmit()">
+        <div class="form">
+            <div class="formbold-mb-6 mandatory">
+                <label for="ucid" class="formbold-form-label">Username <span>*</span></label>
+                <input type="text" name="username" id="username" formControlName="username"
+                    class="formbold-form-input ucid" [(ngModel)]="formData.username" />
+            </div>
+            <div class="error-msg"
+                *ngIf="usernameControl.invalid && (usernameControl.dirty || usernameControl.touched)">
+                <span *ngIf="usernameControl.hasError('required')">Username is required.</span>
+            </div>
+
+            <div class="formbold-mb-6 mandatory" style="margin-bottom: 20px;">
+                <label for="ucid" class="formbold-form-label">Password <span>*</span></label>
+                <input type="password" name="password" id="password" formControlName="password"
+                    class="formbold-form-input ucid" [(ngModel)]="formData.password" />
+            </div>
+            <div class="error-msg" *ngIf="passwordControl.invalid && (passwordControl.dirty || passwordControl.touched)">
+                <span *ngIf="passwordControl.hasError('required')">Password is required.</span>
+            </div>
+
+            <div class="link">
+                <a href="#" class="formbold-form-label">Forget Password?</a>
+            </div>
+
+            <div class="button">
+                <button type="submit" class="btn btn-next formbold-btn">Log In</button>
+            </div>
+        </div>
+    </form> -->
+    <form (ngSubmit)="onSubmit()">
+        <div class="form">
+          <div class="formbold-mb-6 mandatory">
+            <label for="ucid" class="formbold-form-label">Username <span>*</span></label>
+            <input type="text" name="username" id="username" class="formbold-form-input ucid" [(ngModel)]="formData.username" required #usernameInput="ngModel" />
+          </div>
+          <div class="error-msg" *ngIf="usernameError!==''">
+            {{usernameError}}
+          </div>
+      
+          <div class="formbold-mb-6 mandatory" style="margin-bottom: 20px;">
+            <label for="ucid" class="formbold-form-label">Password <span>*</span></label>
+            <input type="password" name="password" id="password" class="formbold-form-input ucid" [(ngModel)]="formData.password" required #passwordInput="ngModel" />
+          </div>
+          <div class="error-msg" *ngIf="passwordError!==''">
+            {{passwordError}}
+          </div>
+      
+          <div class="link">
+            <a href="#" class="formbold-form-label">Forgot Password?</a>
+          </div>
+      
+          <div class="button">
+            <button type="submit" class="btn btn-next formbold-btn">Log In</button>
+          </div>
+        </div>
+      </form>
+</div>

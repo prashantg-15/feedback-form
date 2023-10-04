@@ -3,9 +3,17 @@
 // Google Fonts
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
+// PrimeNg
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+
 // Variable Declaration
 $base-color: #11CFA4;
 $hover-base-color: #0be0ae;
+
+// Dark Theme
+$dark: #090909;
+$green: #00D464;
 
 * {
     margin: 0;
@@ -16,6 +24,117 @@ $hover-base-color: #0be0ae;
 
 body {
     font-family: 'Inter', sans-serif;
-   
+    background-color: #F5F7FB;
 }
 
+.p-dropdown {
+    padding: 13px 0 13px 13px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    color: #536387;
+    outline: none;
+    width: 250px;
+
+    &.p-focus {
+        box-shadow: 0px 3px 8px 11CFA4;
+    }
+
+    .p-dropdown-item {
+        padding: 13px;
+    }
+}
+
+.p-accordion .p-accordion-header .p-accordion-header-link {
+    padding: 1.25rem;
+    border: 1px solid #dee2e6;
+    color: #6c757d;
+    background: #f8f9fa;
+    font-weight: 700;
+    border-radius: 6px;
+    transition: box-shadow 0.2s;
+}
+
+.p-accordion .p-accordion-header .p-accordion-header-link .p-accordion-toggle-icon {
+    margin-right: 0.5rem;
+}
+
+.p-accordion .p-accordion-header:not(.p-disabled) .p-accordion-header-link:focus-visible {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: inset 0 0 0 0.2rem #BFDBFE;
+}
+
+.p-accordion .p-accordion-header:not(.p-highlight):not(.p-disabled):hover .p-accordion-header-link {
+    background: #e9ecef;
+    border-color: #dee2e6;
+    color: #343a40;
+}
+
+.p-accordion .p-accordion-header:not(.p-disabled).p-highlight .p-accordion-header-link {
+    background: #f8f9fa;
+    border-color: #dee2e6;
+    color: #343a40;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.p-accordion .p-accordion-header:not(.p-disabled).p-highlight:hover .p-accordion-header-link {
+    border-color: #dee2e6;
+    background: #e9ecef;
+    color: #343a40;
+}
+
+.p-accordion .p-accordion-content {
+    padding: 1.25rem;
+    border: 1px solid #dee2e6;
+    background: #ffffff;
+    color: #495057;
+    border-top: 0;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+
+.p-accordion p-accordiontab .p-accordion-tab {
+    margin-bottom: 4px;
+}
+
+.p-card {
+    background: #ffffff;
+    color: #495057;
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+    border-radius: 6px;
+    margin-top: 10px;
+}
+
+.p-card .p-card-body {
+    padding: 1.25rem;
+}
+
+.p-card .p-card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.p-card .p-card-subtitle {
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+    color: #6c757d;
+}
+
+.details .p-card .p-card-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h1 {
+        font-weight: 500px !important;
+    }
+}
+
+.p-card .p-card-footer {
+    padding: 1.25rem 0 0 0;
+}

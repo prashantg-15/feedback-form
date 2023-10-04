@@ -1,0 +1,119 @@
+<div class="feedback-page">
+
+  <div class="card">
+    <p-card class="details">
+      <h1>Professor Name: <span>Harshil Kanakia</span></h1>
+      <p-dropdown [options]="subject" [(ngModel)]="selectedSubject" placeholder="Select Subject" [editable]="false"
+        optionLabel="name"></p-dropdown>
+    </p-card>
+    <p-card>
+      <h1><span>Feedback Summary</span></h1>
+      <div class="summary grid-container">
+        <div class="column">
+          <p-accordion [multiple]="true">
+            <ng-container *ngFor="let question of questions.slice(0, 5); let i = index">
+              <p-accordionTab [header]="feedbackTitle[i]">
+                <div class="container">
+                  <!-- <div *ngIf="selectedSubject===''" class="error">
+                    <p>Please select a Subject</p>
+                  </div> -->
+                  <div *ngIf="selectedSubject===''" class="chart">
+                    <div id="divChart">
+                      <canvas [attr.id]="question" class="canvas"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </p-accordionTab>
+            </ng-container>
+          </p-accordion>          
+        </div>
+        <div class="column">
+          <p-accordion [multiple]="true">
+            <ng-container *ngFor="let question of questions; let i = index">
+              <!-- Check if the current question is one of the last 5 elements -->
+              <ng-container *ngIf="i >= questions.length - 5">
+                <p-accordionTab [header]="feedbackTitle[i]">
+                  <div class="container">
+                    <div class="chart">
+                      <div id="divChart">
+                        <canvas [attr.id]="question" class="canvas"></canvas>
+                      </div>
+                    </div>
+                  </div>
+                </p-accordionTab>
+              </ng-container>
+            </ng-container>
+          </p-accordion>    
+        </div>
+      </div>
+      <p-accordion [multiple]="true">
+        <!-- <ng-container *ngFor="let question of questions.slice(5, 10); let i = index"> -->
+          <p-accordionTab header="Feedback/ Suggestions">
+            <div class="container">
+              <div class="chart">
+                <div id="divChart">
+                  <canvas id="q11Chart" class="canvas"></canvas>
+                </div>
+              </div>
+            </div>
+          </p-accordionTab>
+        <!-- </ng-container> -->
+      </p-accordion> 
+    </p-card>
+  </div>
+</div>
+
+<!-- TabView -->
+
+<!-- <div class="feedback-page">
+  <div class="pcss3t pcss3t-effect-scale pcss3t-theme-1">
+
+    <input type="radio" name="pcss3t" checked id="tab1" class="tab-content-first">
+    <label for="tab1">Feedback Summary</label>
+
+    <input type="radio" name="pcss3t" id="tab2" class="tab-content-2">
+    <label for="tab2">Individual Feedback</label>
+
+    <ul>
+      <li class="tab-content tab-content-first typography">
+
+        <p-accordion [multiple]="true">
+          <ng-container *ngFor="let question of questions; let i = index">
+            <p-accordionTab [header]="feedbackTitle[i]">
+              <div class="container">
+                <div class="chart">
+                  <div id="divChart">
+                    <canvas [attr.id]="question" class="canvas"></canvas>
+                  </div>
+                </div>
+              </div>
+            </p-accordionTab>
+          </ng-container>
+        </p-accordion>
+
+      </li>
+
+      <li class="tab-content tab-content-2 typography">
+        <h1>Leonardo da Vinci</h1>
+        <p>Italian Renaissance polymath: painter, sculptor, architect, musician, mathematician, engineer,
+          inventor,
+          anatomist, geologist, cartographer, botanist, and writer. His genius, perhaps more than that of any
+          other figure, epitomized the Renaissance humanist ideal. Leonardo has often been described as the
+          archetype of the Renaissance Man, a man of "unquenchable curiosity" and "feverishly inventive
+          imagination". He is widely considered to be one of the greatest painters of all time and perhaps the
+          most diversely talented person ever to have lived. According to art historian Helen Gardner, the
+          scope
+          and depth of his interests were without precedent and "his mind and personality seem to us
+          superhuman,
+          the man himself mysterious and remote". Marco Rosci states that while there is much speculation
+          about
+          Leonardo, his vision of the world is essentially logical rather than mysterious, and that the
+          empirical
+          methods he employed were unusual for his time.</p>
+        <p class="text-right"><em>Find out more about Leonardo da Vinci from <a
+              href="http://en.wikipedia.org/wiki/Leonardo_da_Vinci" target="_blank">Wikipedia</a>.</em>
+        </p>
+      </li>
+    </ul>
+  </div>
+</div> -->

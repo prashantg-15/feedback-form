@@ -1,18 +1,18 @@
 <div class="containAll" *ngIf="loader">
     <div class="containLoader">
-    <div class="circleGroup circle-1"></div>
-    <div class="circleGroup circle-2"></div>
-    <div class="circleGroup circle-3"></div>
-    <div class="circleGroup circle-4"></div>
-    <div class="circleGroup circle-5"></div>
-    <div class="circleGroup circle-6"></div>
-    <div class="circleGroup circle-7"></div>
-    <div class="circleGroup circle-8"></div>
-    
-    <!-- <div class="innerText">
+        <div class="circleGroup circle-1"></div>
+        <div class="circleGroup circle-2"></div>
+        <div class="circleGroup circle-3"></div>
+        <div class="circleGroup circle-4"></div>
+        <div class="circleGroup circle-5"></div>
+        <div class="circleGroup circle-6"></div>
+        <div class="circleGroup circle-7"></div>
+        <div class="circleGroup circle-8"></div>
+
+        <!-- <div class="innerText">
         <p>Loading...</p>
     </div> -->
-</div>
+    </div>
 </div>
 
 <div class="formbold-main-wrapper" *ngIf="!loader">
@@ -68,16 +68,18 @@
                             <label for="ucid" class="formbold-form-label">UCID <span>(Not Shared)</span></label>
                             <div class="ucid-mandatory"><span>*</span></div>
                             <input type="text" name="ucid" formControlName="ucid" id="ucid"
-                             class="formbold-form-input ucid"/>
+                                class="formbold-form-input ucid" />
                         </div>
-                        <div class="error-msg ucid" *ngIf="nextButtonClicked && formGroup.get('ucid')?.hasError('ucidFormat')">
+                        <div class="error-msg ucid"
+                            *ngIf="nextButtonClicked && formGroup.get('ucid')?.hasError('ucidFormat')">
                             UCID required
                         </div>
 
                         <!-- Question 1 -->
                         <div class="formbold-mb-6 mandatory">
-                            <label for="q1" class="formbold-form-label">1. Subject Knowledge <span *ngIf="faculty[i].isElective==='NO'"> *</span></label>
-                            
+                            <label for="q1" class="formbold-form-label">1. Subject Knowledge <span
+                                    *ngIf="faculty[i].isElective==='NO'"> *</span></label>
+
                             <div class="rate">
                                 <!-- Radio buttons for question 1 -->
                                 <!-- Add more form controls for other questions as needed -->
@@ -99,7 +101,8 @@
 
                         <!-- Question 2 -->
                         <div class="formbold-mb-6 mandatory">
-                            <label for="q2" class="formbold-form-label"> 2. Regularity and Punctuality <span *ngIf="faculty[i].isElective==='NO'"> *</span></label>
+                            <label for="q2" class="formbold-form-label"> 2. Regularity and Punctuality <span
+                                    *ngIf="faculty[i].isElective==='NO'"> *</span></label>
                             <div class="rate">
                                 <input type="radio" id="five2" name="q2" value="5" formControlName="q2" />
                                 <label for="five2"></label>
@@ -119,7 +122,8 @@
 
                         <!-- Question 3 -->
                         <div class="formbold-mb-6 mandatory">
-                            <label for="q3" class="formbold-form-label"> 3. Communication Skills <span *ngIf="faculty[i].isElective==='NO'"> *</span></label>
+                            <label for="q3" class="formbold-form-label"> 3. Communication Skills <span
+                                    *ngIf="faculty[i].isElective==='NO'"> *</span></label>
                             <div class="rate">
                                 <input type="radio" id="five3" name="q3" value="5" formControlName="q3" />
                                 <label for="five3"></label>
@@ -139,7 +143,8 @@
 
                         <!-- Question 4 -->
                         <div class="formbold-mb-6 mandatory">
-                            <label for="q4" class="formbold-form-label"> 4. Syllabus Coverage <span *ngIf="faculty[i].isElective==='NO'"> *</span></label>
+                            <label for="q4" class="formbold-form-label"> 4. Syllabus Coverage <span
+                                    *ngIf="faculty[i].isElective==='NO'"> *</span></label>
                             <div class="rate">
                                 <input type="radio" id="five4" name="q4" value="5" formControlName="q4" />
                                 <label for="five4"></label>
@@ -159,7 +164,8 @@
 
                         <!-- Question 5 -->
                         <div class="formbold-mb-6 mandatory">
-                            <label for="q5" class="formbold-form-label"> 5. Interest generated in the subject <span *ngIf="faculty[i].isElective==='NO'"> *</span></label>
+                            <label for="q5" class="formbold-form-label"> 5. Interest generated in the subject <span
+                                    *ngIf="faculty[i].isElective==='NO'"> *</span></label>
                             <div class="rate">
                                 <input type="radio" id="five5" name="q5" value="5" formControlName="q5" />
                                 <label for="five5"></label>
@@ -179,7 +185,8 @@
 
                         <!-- Question 6 -->
                         <div class="formbold-mb-6 mandatory">
-                            <label for="q6" class="formbold-form-label"> 6. Faculty Preparation <span *ngIf="faculty[i].isElective==='NO'"> *</span></label>
+                            <label for="q6" class="formbold-form-label"> 6. Faculty Preparation <span
+                                    *ngIf="faculty[i].isElective==='NO'"> *</span></label>
                             <div class="rate">
                                 <input type="radio" id="five6" name="q6" value="5" formControlName="q6" />
                                 <label for="five6"></label>
@@ -199,7 +206,8 @@
 
                         <!-- Question 7 -->
                         <div class="formbold-mb-6 mandatory">
-                            <label for="q7" class="formbold-form-label"> 7. Overall Acceptance <span *ngIf="faculty[i].isElective==='NO'"> *</span></label>
+                            <label for="q7" class="formbold-form-label"> 7. Overall Acceptance <span
+                                    *ngIf="faculty[i].isElective==='NO'"> *</span></label>
                             <div class="rate">
                                 <input type="radio" id="five7" name="q7" value="5" formControlName="q7" />
                                 <label for="five7"></label>
@@ -219,7 +227,8 @@
 
                         <!-- Question 8 -->
                         <div class="formbold-mb-6 mandatory">
-                            <label for="q8" class="formbold-form-label"> 8. Use of Effective teaching methods <span *ngIf="faculty[i].isElective==='NO'"> *</span></label>
+                            <label for="q8" class="formbold-form-label"> 8. Use of Effective teaching methods <span
+                                    *ngIf="faculty[i].isElective==='NO'"> *</span></label>
                             <div class="rate">
                                 <input type="radio" id="five8" name="q8" value="5" formControlName="q8" />
                                 <label for="five8"></label>
@@ -239,7 +248,8 @@
 
                         <!-- Question 9 -->
                         <div class="formbold-mb-6 mandatory">
-                            <label for="q9" class="formbold-form-label"> 9. Faculty challenges you to think <span *ngIf="faculty[i].isElective==='NO'"> *</span></label>
+                            <label for="q9" class="formbold-form-label"> 9. Faculty challenges you to think <span
+                                    *ngIf="faculty[i].isElective==='NO'"> *</span></label>
                             <div class="rate">
                                 <input type="radio" id="five9" name="q9" value="5" formControlName="q9" />
                                 <label for="five9"></label>
