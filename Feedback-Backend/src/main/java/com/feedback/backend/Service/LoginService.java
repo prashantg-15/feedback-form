@@ -31,7 +31,7 @@ public class LoginService {
 			ResultSet resultSet = stmt.executeQuery();
 			while (resultSet.next()) {
 				if (resultSet.getString("password").equals(loginCredentials.getPassword())) {
-					return "success";
+					return resultSet.getString("name");
 				}
 			}
 		} catch (SQLException e) {

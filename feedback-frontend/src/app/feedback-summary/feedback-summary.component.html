@@ -1,10 +1,13 @@
+<!-- <app-loader *ngIf="loader"></app-loader> -->
 <div class="feedback-page">
-
   <div class="card">
     <p-card class="details">
-      <h1>Professor Name: <span>Harshil Kanakia</span></h1>
-      <p-dropdown [options]="subject" [(ngModel)]="selectedSubject" placeholder="Select Subject" [editable]="false"
-        optionLabel="name"></p-dropdown>
+      <h1>Faculty: <span>{{facultyName}}</span></h1>
+      <div>
+        <p-dropdown [options]="subject" [(ngModel)]="selectedSubject" placeholder="Select Subject" [editable]="false"
+          optionLabel="name" (onChange)="onDropdownChange()"></p-dropdown>
+        <i class="pi pi-sign-out" style="color: #708090" (click)="logout()"></i>
+      </div>
     </p-card>
     <p-card>
       <h1><span>Feedback Summary</span></h1>
@@ -14,10 +17,10 @@
             <ng-container *ngFor="let question of questions.slice(0, 5); let i = index">
               <p-accordionTab [header]="feedbackTitle[i]">
                 <div class="container">
-                  <!-- <div *ngIf="selectedSubject===''" class="error">
+                  <div *ngIf="selectedSubject===''" class="error">
                     <p>Please select a Subject</p>
-                  </div> -->
-                  <div *ngIf="selectedSubject===''" class="chart">
+                  </div>
+                  <div *ngIf="selectedSubject!==''" class="chart">
                     <div id="divChart">
                       <canvas [attr.id]="question" class="canvas"></canvas>
                     </div>
@@ -25,7 +28,7 @@
                 </div>
               </p-accordionTab>
             </ng-container>
-          </p-accordion>          
+          </p-accordion>
         </div>
         <div class="column">
           <p-accordion [multiple]="true">
@@ -34,7 +37,10 @@
               <ng-container *ngIf="i >= questions.length - 5">
                 <p-accordionTab [header]="feedbackTitle[i]">
                   <div class="container">
-                    <div class="chart">
+                    <div *ngIf="selectedSubject===''" class="error">
+                      <p>Please select a Subject</p>
+                    </div>
+                    <div *ngIf="selectedSubject!==''" class="chart">
                       <div id="divChart">
                         <canvas [attr.id]="question" class="canvas"></canvas>
                       </div>
@@ -43,22 +49,25 @@
                 </p-accordionTab>
               </ng-container>
             </ng-container>
-          </p-accordion>    
+          </p-accordion>
         </div>
       </div>
       <p-accordion [multiple]="true">
         <!-- <ng-container *ngFor="let question of questions.slice(5, 10); let i = index"> -->
-          <p-accordionTab header="Feedback/ Suggestions">
-            <div class="container">
-              <div class="chart">
-                <div id="divChart">
-                  <canvas id="q11Chart" class="canvas"></canvas>
-                </div>
+        <p-accordionTab header="Feedback/ Suggestions">
+          <div class="container">
+            <div *ngIf="selectedSubject===''" class="error">
+              <p>Please select a Subject</p>
+            </div>
+            <div *ngIf="selectedSubject!==''" class="chart">
+              <div id="divChart">
+                <canvas id="q11Chart" class="canvas"></canvas>
               </div>
             </div>
-          </p-accordionTab>
+          </div>
+        </p-accordionTab>
         <!-- </ng-container> -->
-      </p-accordion> 
+      </p-accordion>
     </p-card>
   </div>
 </div>

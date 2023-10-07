@@ -3,6 +3,7 @@ import { ChartService } from '../services/restAPI/chart-service.service';
 import Chart from 'chart.js/auto';
 import { SelectItem } from "primeng/api";
 import { FacultyService } from '../services/restAPI/faculty-service.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 interface Subject {
   name: string;
@@ -16,7 +17,7 @@ interface Subject {
 export class FeedbackSummaryComponent {
 
   subject: Subject[] | undefined;
-  selectedSubject: string = '';
+  selectedSubject: any = '';
 
   chart: any = [];
   backgroundColor: any = ['#FAB06F', '#FF505D', '#15CEAE', '#45AFFF', '#FFE85F'];
@@ -26,44 +27,57 @@ export class FeedbackSummaryComponent {
   // Create an array of question keys from "q1" to "q10"
   questions: any = ['q1Chart', 'q2Chart', 'q3Chart', 'q4Chart', 'q5Chart', 'q6Chart', 'q7Chart', 'q8Chart', 'q9Chart', 'q10Chart'];
 
-  constructor(private facultyService: FacultyService) { }
+  username: any;
+  facultyName: any;
+  loader: boolean = false;
+
+  constructor(private facultyService: FacultyService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
 
-    this.subject = [
-      { name: 'New York' },
-      { name: 'Rome' },
-      { name: 'London' },
-      { name: 'Istanbul' },
-      { name: 'Paris' }
-    ];
+    const sessionString = localStorage.getItem('session');
+    if (sessionString !== null) {
+      const sessionObject = JSON.parse(sessionString);
+      this.facultyName = sessionObject.result;
+    } else {
+      // Handle the case where 'session' is not found in localStorage
+      console.log('Item not found in localStorage');
+    }
 
-    // this.getSubjects();
-    this.getFeedback();
+    this.route.params.subscribe(username => {
+      this.username = username['faculty'];
+    });
+
+    this.feedbackTitle = this.facultyService.getFeedbackTitle();
+    this.getSubjects();
+    // this.getFeedback();
   }
 
   // API Call to GET Feedback
   getFeedback() {
-    // this.facultyService.getFeedback('harshilKanakia', 'DSA').subscribe((data) => {
-    //   this.feedback = data;
-    // })
-
-    this.facultyService.getChart().subscribe((data) => {
+    this.loader = true;
+    this.facultyService.getFeedback(this.facultyName, this.selectedSubject.name).subscribe((data) => {
       this.feedback = data;
     })
-
-    this.feedbackTitle = this.facultyService.getFeedbackTitle();
-    console.log(this.feedbackTitle);
+    // if (this.feedback.length === 0) {
+    //   this.facultyService.getChart().subscribe((data) => {
+    //     this.feedback = data;
+    //   })
+    // }
     setTimeout(() => {
-      this.Charts();
-    }, 1000);
+      this.Charts();  
+      this.loader = false; 
+    }, 3000);
   }
 
   // API Call to GET Subject
   getSubjects() {
-    this.facultyService.getSubject('harshilKanakia').subscribe((data) => {
+    this.facultyService.getSubject(this.username).subscribe((data) => {
       this.subject = data;
     });
+  }
+
+  onDropdownChange() {
     this.getFeedback();
   }
 
@@ -126,5 +140,10 @@ export class FeedbackSummaryComponent {
     //     responsive: true
     //   },
     // });
+  }
+
+  logout() {
+    localStorage.removeItem('session');
+    this.router.navigate(['']);
   }
 }

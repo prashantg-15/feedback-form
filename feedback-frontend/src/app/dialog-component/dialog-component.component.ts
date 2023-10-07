@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { DialogService } from '../services/general/dialog-service.service';
-import { AbstractControl, FormBuilder, FormGroup, NgForm, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { FacultyService } from '../services/restAPI/faculty-service.service';
 
 @Component({
@@ -11,48 +11,66 @@ import { FacultyService } from '../services/restAPI/faculty-service.service';
 })
 export class DialogComponentComponent {
 
-  constructor(public service: DialogService, private facultyService: FacultyService, private router: Router) { }
+  @ViewChild('userInput') userInput!: ElementRef;
+  @ViewChild('passInput') passInput!: ElementRef;
+
+  loginForm: FormGroup = this.fb.group({
+    username: ['', Validators.required],
+    password: ['', Validators.required]
+  });
+
+  usernameError: boolean = false;
+  passwordError: boolean = false;
+
+  session: any;
+
+  constructor(public service: DialogService, private facultyService: FacultyService, private router: Router, private fb: FormBuilder) { 
+    let session: any = localStorage.getItem('session');
+    if(session) {
+      session = JSON.parse(session);
+    }
+    this.session = session;
+  }
 
   ngOnInit() {
 
   }
 
-  formData: any = {}; // Object to store form data
-  usernameError: any = '';
-  passwordError: any = '';
-  result: any = '';
+  clearError() {
+    if (this.loginForm.value.username) {
+      this.usernameError = false; // Clear the 'required' error
+    }
+    if (this.loginForm.value.password) {
+      this.passwordError = false; // Clear the 'required' error
+    }
+  }
 
-  // Method to handle form submission
   onSubmit() {
-    if (this.formData.username && this.formData.password) {
-      // Your login logic here
-      this.facultyService.loginValidation(this.formData).subscribe({
+    if (this.loginForm.valid) {
+      this.facultyService.loginValidation(this.loginForm.value).subscribe({
         next: (response) => {
           // You can process the response data as needed
           const jsonResponse = JSON.parse(response)
-          console.log(response.reault);
-          if (response && jsonResponse.result === 'success') {
-            this.router.navigate(['feedbackSummary']);
+          console.log(jsonResponse.result);
+          if (response && jsonResponse.result !== 'fail') {
+            this.session = this.loginForm.value;
+            this.session.result = jsonResponse.result;
+            localStorage.setItem('session', JSON.stringify(this.session));
+            this.router.navigate(['feedbackSummary',this.loginForm.value.username]);
           } else {
-            this.usernameError = "Please enter correct username";
-            this.passwordError = "Please enter correct password";
+            this.usernameError = true;
+            this.passwordError = true;
+            this.userInput.nativeElement.value = '';
+            this.passInput.nativeElement.value = '';
           }
         },
         error: (error) => {
           console.log("Error : " + error);
         }
       })
-    }
-    else if (this.formData.username === '') {
-      this.usernameError = "Please enter correct username";
-    }
-    else if (this.formData.password === '') {
-      this.passwordError = "Please Enter Correct Password"
-    }
-    else {
-      // Handle validation errors or show a message to the user
-      this.usernameError = "Please enter correct username";
-      this.passwordError = "Please Enter Correct Password";
+    }else {
+      this.usernameError = true;
+      this.passwordError = true;
     }
   }
 

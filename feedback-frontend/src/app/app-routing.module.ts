@@ -4,9 +4,10 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { TeacherFeedbackComponent } from './teacher-feedback/teacher-feedback.component';
 import { DialogComponentComponent } from './dialog-component/dialog-component.component';
 import { FeedbackSummaryComponent } from './feedback-summary/feedback-summary.component';
+import { authGuard } from './guard/auth.guard';
 
 const routes: Routes = [
-  { 
+  {
     path: '',
     component: HomePageComponent
   },
@@ -20,7 +21,13 @@ const routes: Routes = [
   },
   {
     path: 'feedbackSummary',
-    component: FeedbackSummaryComponent
+    component: FeedbackSummaryComponent,
+    canActivate: [authGuard]
+  },
+  {
+    path: 'feedbackSummary/:faculty',
+    component: FeedbackSummaryComponent,
+    canActivate: [authGuard]
   }
 ];
 
