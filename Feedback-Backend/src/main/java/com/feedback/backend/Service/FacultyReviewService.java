@@ -38,20 +38,19 @@ public class FacultyReviewService {
 					+ "positive_percentage,negative_percentage,neutral_percentage,subject)VALUES"
 					+ "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 			for(FacultyReview facultyReview:facultyReviewList) {
-				// System.out.println(facultyReview.get());
-//				JSONObject jsonObject =analyzeSentiment(facultyReview.getQ11());
-//				System.out.println(jsonObject.get("pos"));
-//				double neg = jsonObject.getDouble("neg");
-//				double neu = jsonObject.getDouble("neu");
-//				double pos = jsonObject.getDouble("pos");
-//				String sentiment="";
-//				if (neg > pos && neg > neu)
-//					sentiment= "Negative Sentiment";
-//				else if(neg < pos && pos > neu)
-//					sentiment= "Positive Sentiment";
-//				else
-//					sentiment= "Neutral Sentiment";
-//				System.out.println(facultyReview.getQ11());
+				JSONObject jsonObject =analyzeSentiment(facultyReview.getQ11());
+				System.out.println(jsonObject.get("pos"));
+				double neg = jsonObject.getDouble("neg");
+				double neu = jsonObject.getDouble("neu");
+				double pos = jsonObject.getDouble("pos");
+				String sentiment="";
+				if (neg > pos && neg > neu)
+					sentiment= "Negative Sentiment";
+				else if(neg < pos && pos > neu)
+					sentiment= "Positive Sentiment";
+				else
+					sentiment= "Neutral Sentiment";
+				System.out.println(facultyReview.getQ11());
 				PreparedStatement pst= conn.prepareStatement(query);
 				pst.setLong(1, facultyReview.getUcid());
 				pst.setInt(2, facultyReview.getQ1());
@@ -67,10 +66,10 @@ public class FacultyReviewService {
 				pst.setNString(12, facultyReview.getQ11());
 				pst.setNString(13, facultyReview.getFaculty());
 				pst.setNString(14, facultyReview.getClassName());
-				pst.setNString(15, "Positive");
-				pst.setDouble(16, 100);
-				pst.setDouble(17, 100);
-				pst.setDouble(18, 100);
+				pst.setNString(15, sentiment);
+				pst.setDouble(16, pos*100);
+				pst.setDouble(17, neg*100);
+				pst.setDouble(18, neu*100);
 				pst.setNString(19, facultyReview.getSubject());
 				flag = pst.executeUpdate();
 			}

@@ -23,17 +23,19 @@ public class ChartService {
 	@Value("${spring.datasource.username}")
 	String user;
 
-	public List<Map<String, List<Map<String, String>>>> getChartDataService(String facultyName, String subjectName)
+	public Map<String, List<Map<String, String>>> getChartDataService(String facultyName, String subjectName)
 			throws ClassNotFoundException {
-		List<Map<String, List<Map<String, String>>>> ratingListLev1 = new ArrayList<Map<String, List<Map<String, String>>>>();
-
+	//	List<Map<String, List<Map<String, String>>>> ratingListLev1 = new ArrayList<Map<String, List<Map<String, String>>>>();
+	//	Map<String, List<Map<String, String>>> ratingListLev1 = new HashMap<String, List<Map<String, String>>>();
+		Map<String, List<Map<String, String>>> ratingMapLev1=null;
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		int counterStars = 1;
 		try (Connection connection = DriverManager.getConnection(url, user, password);
 				Statement statement = connection.createStatement();) {
+			ratingMapLev1 = new HashMap<String, List<Map<String, String>>>();
 			for (int i = 1; i <= 10; i++) {
 				counterStars = 1;
-				Map<String, List<Map<String, String>>> ratingMapLev1 = new HashMap<String, List<Map<String, String>>>();
+				
 				List<Map<String, String>> ratingListLev2 = new ArrayList<Map<String, String>>();
 				while (counterStars <= 5) {
 					String query = "SELECT sum(q1) as starSum FROM FacultyReview WHERE subject=? AND faculty=? AND q"
@@ -52,14 +54,12 @@ public class ChartService {
 					counterStars++;
 				}
 				ratingMapLev1.put("q" + i, ratingListLev2);
-				ratingListLev1.add(ratingMapLev1);
+//				ratingListLev1.add(ratingMapLev1);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return ratingListLev1;
-
+		return ratingMapLev1;
 	}
 
 	public List<Map<String, String>> getChartDataFacultyService(String facultyName) throws ClassNotFoundException {

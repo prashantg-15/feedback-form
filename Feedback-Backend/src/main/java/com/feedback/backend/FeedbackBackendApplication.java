@@ -8,7 +8,7 @@ public class FeedbackBackendApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(FeedbackBackendApplication.class, args);
-		System.out.println("hiii");
+		System.out.println("hiii !! Welcome to SpireMetrics");
 	}
 
 }

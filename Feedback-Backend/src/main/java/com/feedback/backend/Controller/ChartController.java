@@ -19,10 +19,10 @@ public class ChartController {
 	ChartService chartService;
 
 	@GetMapping("/feedbackSummary/{facultyName}/{subjectName}")
-	public List<Map<String, List<Map<String, String>>>> getChartData(@PathVariable String facultyName,
+	public Map<String, List<Map<String, String>>> getChartData(@PathVariable String facultyName,
 			@PathVariable String subjectName) throws ClassNotFoundException {
 
-		List<Map<String, List<Map<String, String>>>> response = chartService.getChartDataService(facultyName,
+		Map<String, List<Map<String, String>>> response = chartService.getChartDataService(facultyName,
 				subjectName);
 		return response;
 
