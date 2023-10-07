@@ -87,12 +87,21 @@ select * from FacultyReview;
 
 create table LoginDetails(
    id integer primary key Auto_increment,
+   name varchar(30),
    username varchar(20),
    password varchar(20)
 );
-INSERT INTO `FeedbackProject`.`LoginDetails`(`username`,`password`)
-VALUES
-('HarshilKanakia','12345678'),('sakshiN','sakshi85'),('prashantG','drStrange#4');
+
+drop table LoginDetails;
+
+INSERT INTO `FeedbackProject`.`LoginDetails`(`name`,`username`,`password`) VALUES
+('Prof Harshil Kanakia', 'harshilK', 'harshil@1'),
+('Prof Pallavi Thakur','pallaviT', 'pallavi@1'),
+('Prof Nikhita Mangaonkar','nikhitaM', 'nikhita@1'),
+('Prof. Aarti Karande','aartiK', 'aarti@1'),
+('Prof Pooja Raundale','poojaR', 'pooja@1'),
+('Sakshi Naik', 'sakshiN', 'sakshi@2'),
+('Prashant Gowda', 'prashantG', 'prashant@3');
 
 select * from LoginDetails;
 
