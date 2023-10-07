@@ -14,6 +14,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AccordionModule } from 'primeng/accordion';
 import { CardModule } from 'primeng/card';
+import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { CardModule } from 'primeng/card';
     TeacherFeedbackComponent,
     DialogComponentComponent,
     FeedbackSummaryComponent,
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,

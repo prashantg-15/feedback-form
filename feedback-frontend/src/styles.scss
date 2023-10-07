@@ -6,6 +6,7 @@
 // PrimeNg
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
 
 // Variable Declaration
 $base-color: #11CFA4;
@@ -35,6 +36,7 @@ body {
     color: #536387;
     outline: none;
     width: 250px;
+    margin-right: 13px;
 
     &.p-focus {
         box-shadow: 0px 3px 8px 11CFA4;
@@ -137,4 +139,13 @@ body {
 
 .p-card .p-card-footer {
     padding: 1.25rem 0 0 0;
+}
+
+.pi {
+    color: #708090;
+    padding: 12px;
+    padding-bottom: 16px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    border-radius: 5px;
+    cursor: pointer;
 }

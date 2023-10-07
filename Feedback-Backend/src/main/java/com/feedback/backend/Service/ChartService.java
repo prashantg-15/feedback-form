@@ -8,8 +8,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -62,19 +64,38 @@ public class ChartService {
 		return ratingMapLev1;
 	}
 
-	public List<Map<String, String>> getChartDataFacultyService(String facultyName) throws ClassNotFoundException {
-		String query = "select * from FacultyReview where faculty=?";
+	public List<Map<String, String>> getChartDataFacultyService(String facultyUsername) throws ClassNotFoundException {
+		
+		String query = "SELECT name FROM LoginDetails WHERE username=?";
+		String query1 = "select * from FacultyReview where faculty=?";
 		Class.forName("com.mysql.cj.jdbc.Driver");
+		
 		List<Map<String, String>> subjectsList = new ArrayList<Map<String, String>>();
+		String facultyName = "";
+		
 		try (Connection connection = DriverManager.getConnection(url, user, password);
 				PreparedStatement stmt = connection.prepareStatement(query);) {
-			stmt.setString(1, facultyName);
-			ResultSet result = stmt.executeQuery();
-			while (result.next()) {
-				Map<String, String> subjectsMap = new HashMap<String, String>();
-				subjectsMap.put("name", result.getString("subject"));
-				subjectsList.add(subjectsMap);
+			stmt.setString(1, facultyUsername);
+			ResultSet res = stmt.executeQuery();
+			while(res.next()) {
+				facultyName = res.getString("name");
 			}
+			
+			try (PreparedStatement pstm = connection.prepareStatement(query1);) {
+				pstm.setString(1, facultyName);
+				ResultSet result = pstm.executeQuery();
+				Set<String> uniqueSubjects = new HashSet<String>();
+				while (result.next()) {
+					String subject = result.getString("subject");
+					if(!uniqueSubjects.contains(subject)) {
+						Map<String, String> subjectsMap = new HashMap<String, String>();
+						subjectsMap.put("name", subject);
+						subjectsList.add(subjectsMap);
+						uniqueSubjects.add(subject);
+					}
+				}
+			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
