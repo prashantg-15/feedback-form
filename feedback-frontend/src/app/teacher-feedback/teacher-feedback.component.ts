@@ -15,8 +15,6 @@ export class TeacherFeedbackComponent {
 
   loader = true;
 
-  private isLoading = new BehaviorSubject<boolean>(false);
-
   faculty: FacultySubjects[] = [];
 
   faculty1: any[] = [
@@ -34,7 +32,7 @@ export class TeacherFeedbackComponent {
   nextButtonClicked = false;
   error:string = "";
   feedback: any = [];
-  param: any = "";
+  param: any;
 
   constructor(private formBuilder: FormBuilder, private facultyService: FacultyService, private route: ActivatedRoute, private router: Router) {}
 
@@ -118,14 +116,14 @@ export class TeacherFeedbackComponent {
   }
 
   private getFacultySubjects() {
-      // this.facultyService.getFacultySubjects(this.param).subscribe((data) => {
-      //   this.faculty = data;
-      // });
-
-      this.facultyService.getJSON().subscribe((data) => {
+      this.facultyService.getFacultySubjects(this.param).subscribe((data) => {
         this.faculty = data;
-      })
-
+      });
+      if(this.faculty.length===0) {
+        this.facultyService.getJSON().subscribe((data) => {
+          this.faculty = data;
+        })
+      }
       setTimeout(() => {
         this.createItemForms();
         this.loader = false;
