@@ -37,21 +37,12 @@ public class FacultyReviewService {
 			String query = "INSERT INTO FeedbackProject.FacultyReview(ucid,q1,q2,q3,q4,q5,q6,q7,q8,q9,q10,q11,faculty,className,FeedBackSentiment,"
 					+ "positive_percentage,negative_percentage,neutral_percentage,subject)VALUES"
 					+ "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
-			for(FacultyReview facultyReview:facultyReviewList) {
-				JSONObject jsonObject =analyzeSentiment(facultyReview.getQ11());
-				System.out.println(jsonObject.get("pos"));
-				double neg = jsonObject.getDouble("neg");
-				double neu = jsonObject.getDouble("neu");
-				double pos = jsonObject.getDouble("pos");
-				String sentiment="";
-				if (neg > pos && neg > neu)
-					sentiment= "Negative Sentiment";
-				else if(neg < pos && pos > neu)
-					sentiment= "Positive Sentiment";
-				else
-					sentiment= "Neutral Sentiment";
+			for (FacultyReview facultyReview : facultyReviewList) {
+				JSONObject jsonObject = analyzeSentiment(facultyReview.getQ11());
+				System.out.println(jsonObject);
+				JSONObject jsonObjectScores = jsonObject.getJSONObject("polarity_scores");
 				System.out.println(facultyReview.getQ11());
-				PreparedStatement pst= conn.prepareStatement(query);
+				PreparedStatement pst = conn.prepareStatement(query);
 				pst.setLong(1, facultyReview.getUcid());
 				pst.setInt(2, facultyReview.getQ1());
 				pst.setInt(3, facultyReview.getQ2());
@@ -66,10 +57,10 @@ public class FacultyReviewService {
 				pst.setNString(12, facultyReview.getQ11());
 				pst.setNString(13, facultyReview.getFaculty());
 				pst.setNString(14, facultyReview.getClassName());
-				pst.setNString(15, sentiment);
-				pst.setDouble(16, pos*100);
-				pst.setDouble(17, neg*100);
-				pst.setDouble(18, neu*100);
+				pst.setNString(15, jsonObject.getString("predicted_sentiment"));
+				pst.setDouble(16, jsonObjectScores.getDouble("Positive") * 100);
+				pst.setDouble(17, jsonObjectScores.getDouble("Negative") * 100);
+				pst.setDouble(18, jsonObjectScores.getDouble("Neutral") * 100);
 				pst.setNString(19, facultyReview.getSubject());
 				flag = pst.executeUpdate();
 			}
@@ -85,7 +76,9 @@ public class FacultyReviewService {
 	}
 
 	public JSONObject analyzeSentiment(String request) throws IOException, InterruptedException {
-		String pythonScriptPath = "C:/Users/sakshi/PycharmProjects/BertBased_Project/main_withScores.py"; // Update with actual path
+		String pythonScriptPath = "C:/Users/sakshi/PycharmProjects/BertBased_Project/main_withScores.py"; // Update with
+																											// actual
+																											// path
 		String inputText = request;
 		String[] command = { "python", pythonScriptPath, inputText };
 		ProcessBuilder processBuilder = new ProcessBuilder(command);
