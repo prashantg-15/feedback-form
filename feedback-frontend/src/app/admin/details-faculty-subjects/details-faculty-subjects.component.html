@@ -1,0 +1,27 @@
+
+<div class="container">
+    <h1>Faculty and their alloted subject Details</h1>
+    <form>
+        <div class="form">
+            <div class="formbold-mb-6 mandatory">
+                <label class="formbold-form-label"> <b> Class Name: </b></label> <br>
+                <input type="text" pInputText [disabled]="true" [value]="facultySubjects.className" />
+            </div>
+            <div class="formbold-mb-6 mandatory">
+                <label for="ucid" class="formbold-form-label"><b>Faculty Name: </b></label> <br>
+                <input type="text" pInputText [disabled]="true" [value]="facultySubjects.faculty_name" />
+            </div>
+            <div class="formbold-mb-6 mandatory">
+                <label class="formbold-form-label"><b> Subject Name </b></label> <br>
+                <input type="text" pInputText [disabled]="true" [value]="facultySubjects.subject" />
+            </div>
+            <div class="formbold-mb-6 mandatory">
+                <label class="formbold-form-label"> <b> Is Elective? </b></label> <br>
+                <input type="text" pInputText [disabled]="true" [value]="facultySubjects.isElective" />
+            </div>
+            <div class="button">
+                <button class="btn btn-next formbold-btn" (click)="goBack()">Go Back</button>
+            </div>
+        </div>
+    </form>
+</div>
