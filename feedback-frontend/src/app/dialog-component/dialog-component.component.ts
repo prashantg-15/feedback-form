@@ -24,9 +24,9 @@ export class DialogComponentComponent {
 
   session: any;
 
-  constructor(public service: DialogService, private facultyService: FacultyService, private router: Router, private fb: FormBuilder) { 
+  constructor(public service: DialogService, private facultyService: FacultyService, private router: Router, private fb: FormBuilder) {
     let session: any = localStorage.getItem('session');
-    if(session) {
+    if (session) {
       session = JSON.parse(session);
     }
     this.session = session;
@@ -56,7 +56,11 @@ export class DialogComponentComponent {
             this.session = this.loginForm.value;
             this.session.result = jsonResponse.result;
             localStorage.setItem('session', JSON.stringify(this.session));
-            this.router.navigate(['feedbackSummary',this.loginForm.value.username]);
+            if (this.loginForm.value.username == 'sakshiN') {
+              this.router.navigate(['facultySubjectsList']);
+            } else {
+              this.router.navigate(['feedbackSummary', this.loginForm.value.username]);
+            }
           } else {
             this.usernameError = true;
             this.passwordError = true;
@@ -68,7 +72,7 @@ export class DialogComponentComponent {
           console.log("Error : " + error);
         }
       })
-    }else {
+    } else {
       this.usernameError = true;
       this.passwordError = true;
     }

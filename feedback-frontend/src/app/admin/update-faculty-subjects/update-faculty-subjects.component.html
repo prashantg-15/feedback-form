@@ -1,0 +1,32 @@
+<div class="container">
+    <h1>Add Faculty Subject</h1>
+    <form (ngSubmit)="onSubmit()" [formGroup]="facultySubjectsForm">
+        <div class="form">
+            <div class="formbold-mb-6 mandatory">
+                <label class="formbold-form-label">Class Name </label><br>
+                <p-dropdown formControlName="className" [options]="options1" optionLabel="name"  placeholder="Select one option"
+                    [(ngModel)]="options1[index]"></p-dropdown>
+            </div>
+            <div class="formbold-mb-6 mandatory" style="margin-bottom: 20px;">
+                <label class="formbold-form-label">Faculty Name</label><br>
+                <p-dropdown [options]="facultyNamesList" [(ngModel)]="customFacultyName"
+                    (ngModelChange)="handleCustomFacultyNameChange($event)" formControlName="facultyName"
+                    placeholder="Select a Faculty Name" [editable]="true"
+                    [(ngModel)]="facultySubjectsPreviousData.faculty_name" optionLabel="name"></p-dropdown>
+            </div>
+            <div class="formbold-mb-6 mandatory" style="margin-bottom: 20px;">
+                <label class="formbold-form-label">Subject Name</label><br>
+                <input type="text" [(ngModel)]="facultySubjectsPreviousData.subject" class="formbold-form-input ucid"
+                    formControlName="subject" #passInput />
+            </div>
+            <div class="formbold-mb-6 mandatory" style="margin-bottom: 20px;">
+                <label class="formbold-form-label">Is Elective?</label><br>
+                <p-dropdown [editable]="true" [options]="options" formControlName="isElective" optionLabel="name" placeholder="Select one option"
+                    [(ngModel)]="facultySubjectsPreviousData.isElective"></p-dropdown>
+            </div>
+            <div class="button">
+                <button class="btn btn-next formbold-btn">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
