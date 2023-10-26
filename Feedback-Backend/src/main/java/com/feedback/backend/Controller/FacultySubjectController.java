@@ -14,18 +14,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.feedback.backend.Model.FacultySubjects;
 import com.feedback.backend.Service.FacultySubjectsService;
 
 @CrossOrigin(origins = "*")
 @RestController
+@RequestMapping("facultySubjectController")
 public class FacultySubjectController {
 
 	@Autowired
 	private FacultySubjectsService facultySubjectsService;
 
-	@GetMapping("/getfacultySubjects")
+	@GetMapping("/facultySubjects")
 	public List<FacultySubjects> getAllRecord() {
 		List<FacultySubjects> facultySubjectsList = null;
 		try {
@@ -36,7 +38,7 @@ public class FacultySubjectController {
 		return facultySubjectsList;
 	}
 
-	@PostMapping("/postFacultySubjects")
+	@PostMapping("/facultySubjects")
 	public String createRecord(@RequestBody FacultySubjects facultySubjects) {
 		String Result = "";
 		try {
@@ -48,14 +50,14 @@ public class FacultySubjectController {
 		return Result;
 	}
 
-	@GetMapping("/getfacultySubjects/{Id}")
+	@GetMapping("/facultySubjects/{Id}")
 	public FacultySubjects getAllRecordByString(@PathVariable Integer Id) throws ClassNotFoundException, SQLException {
 		FacultySubjects facultySubjects = null;
 		facultySubjects = facultySubjectsService.findById(Id);
 		return facultySubjects;
 	}
 
-	@PutMapping("/getfacultySubjects/{Id}")
+	@PutMapping("/facultySubjects/{Id}")
 	public ResponseEntity<String> updateRecord(@PathVariable Integer Id,
 			@RequestBody FacultySubjects facultySubjectsdetails) throws ClassNotFoundException, SQLException {
 		FacultySubjects facultySubjects = facultySubjectsService.findById(Id);
@@ -69,7 +71,7 @@ public class FacultySubjectController {
 		return ResponseEntity.ok(updatedEmployee);
 	}
 
-	@DeleteMapping("/delfacultySubjects/{id}")
+	@DeleteMapping("/facultySubjects/{id}")
 	public ResponseEntity<Map<String, Boolean>> deleteRecord(@PathVariable Integer id)
 			throws ClassNotFoundException, SQLException {
 		FacultySubjects facultySubjects = facultySubjectsService.findById(id);
