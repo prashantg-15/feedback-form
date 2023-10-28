@@ -15,13 +15,22 @@ interface options {
 })
 export class UpdateFacultySubjectsComponent {
 
+  className: any;
+  isElective: any;
+  index: any;
+  index1: any;
   id!: number;
   facultyNamesList: String[] = [];
+
   options: options[] = [
-    { name: "YES" }, { name: "NO" }];
+    { name: "YES" }, 
+    { name: "NO" }
+  ];
 
   options1: options[] = [
-    { name: "FYMCA" }, { name: "SYMCA" }];
+    { name: "FYMCA" },
+    { name: "SYMCA" }
+  ];
 
   facultySubjectsForm!: FormGroup;
   customFacultyName: string = '';
@@ -32,7 +41,7 @@ export class UpdateFacultySubjectsComponent {
     console.log('Custom Faculty Name:', this.customFacultyName);
   }
   handleCustomClassNameChange(event: any) {
-    
+
   }
   constructor(
     private route: ActivatedRoute,
@@ -40,7 +49,7 @@ export class UpdateFacultySubjectsComponent {
     private router: Router,
     private changeDetectorRef: ChangeDetectorRef,
     private fb: FormBuilder
-  ) { 
+  ) {
     this.facultySubjectsForm = this.fb.group({
       className: [this.facultySubjectsPreviousData.className, Validators.required],
       facultyName: [this.facultySubjectsPreviousData.faculty_name, Validators.required],
@@ -48,7 +57,7 @@ export class UpdateFacultySubjectsComponent {
       isElective: [this.facultySubjectsPreviousData.isElective, Validators.required]
     });
   }
-  index: any;
+
 
   ngOnInit() {
     this.facultySubjectsService.getFacultyNameList().subscribe(data => {
@@ -58,19 +67,13 @@ export class UpdateFacultySubjectsComponent {
     this.id = this.route.snapshot.params['id'];
     this.facultySubjectsService.getFacultySubjectsById(this.id).subscribe(data => {
       this.facultySubjectsPreviousData = data;
-      console.log(this.facultySubjectsPreviousData);
+      console.log(this.facultySubjectsPreviousData.isElective);
       this.index = this.options1.findIndex(option => option.name === this.facultySubjectsPreviousData.className);
+      this.className = this.options1[this.index];
+      this.index1 = this.options.findIndex(option => option.name === this.facultySubjectsPreviousData.isElective);
+      this.isElective = this.options[this.index1];
     }, error => console.log(error));
-    setTimeout(() => {
-      // this.mcaClassName = this.facultySubjectsPreviousData.className;
-      this.initializeForm();
-    },2000);
   }
-
-  initializeForm() {
-  
-  }
-
 
 
   saveFacultySubjectsEntry() {
@@ -82,7 +85,7 @@ export class UpdateFacultySubjectsComponent {
       this.facultySubjects.isElective = this.facultySubjectsForm.get('isElective')?.value?.name;
 
       this.facultySubjectsService.updateFacultySubjects(this.id, this.facultySubjects).subscribe(response => {
-        if (typeof response === 'string' && response === 'Inserted Successfully') {
+        if (typeof response === 'string' && response === 'Updated Successfully') {
           console.log('Data inserted successfully');
           this.goToFacultySubjectsList();
         } else {

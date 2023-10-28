@@ -14,12 +14,33 @@ body {
 
 .card {
     background: var(--surface-card);
-    padding: 2rem;
-    border-radius: 10px;
+    padding: 10px;
+    border-radius: 3px;
     margin-bottom: 1rem;
+    width: 68%;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    margin-top: 30px;
 }
 
 .button-css1{
     margin-left: 10px;
     font-size:20px;
+}
+
+.content {
+    display: flex;
+}
+
+.img-card {
+    width: 41px;
+    height: 39px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    text-align: center;
+    cursor: pointer;
+    margin-left: 21px;
+    border-radius: 3px;
+
+    img {
+        width: 37px;
+    }
 }
