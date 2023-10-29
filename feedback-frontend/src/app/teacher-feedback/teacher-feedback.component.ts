@@ -3,12 +3,13 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Valida
 import { FacultySubjects } from '../class/FacultySubjects/faculty-subjects';
 import { FacultyService } from '../services/restAPI/faculty-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-teacher-feedback',
   templateUrl: './teacher-feedback.component.html',
-  styleUrls: ['./teacher-feedback.component.scss']
+  styleUrls: ['./teacher-feedback.component.scss'],
+  providers: [MessageService]
 })
 
 export class TeacherFeedbackComponent {
@@ -18,8 +19,8 @@ export class TeacherFeedbackComponent {
   faculty: FacultySubjects[] = [];
 
   faculty1: any[] = [
-    {subject: 'Math'},
-    {subject: 'Science'}
+    { subject: 'Math' },
+    { subject: 'Science' }
   ];
 
   ucidValidation!: boolean;
@@ -30,11 +31,11 @@ export class TeacherFeedbackComponent {
 
   step = 1;
   nextButtonClicked = false;
-  error:string = "";
+  error: string = "";
   feedback: any = [];
   param: any;
 
-  constructor(private formBuilder: FormBuilder, private facultyService: FacultyService, private route: ActivatedRoute, private router: Router) {}
+  constructor(private messageService: MessageService, private formBuilder: FormBuilder, private facultyService: FacultyService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -46,18 +47,18 @@ export class TeacherFeedbackComponent {
   // ---------- UCID VALIDATION -------------
   ucidFormatValidator(control: AbstractControl): ValidationErrors | null {
     const ucidValue = control.value as string;
-    if(!ucidValue) {
+    if (!ucidValue) {
       return { ucidFormat: true, error: "UCID Required" };
     }
-  
+
     // Define a regular expression pattern for UCID format
     const ucidPattern = /^\d{10}$/;
-  
+
     if (!ucidPattern.test(ucidValue)) {
       // Return a validation error object if the format is not valid
       return { ucidFormat: true, error: "UCID Required" };
     }
-  
+
     // Return null if the validation passes
     return null;
   }
@@ -65,12 +66,12 @@ export class TeacherFeedbackComponent {
   // ---------- Q's VALIDATION -------------
   customQValidator(control: AbstractControl): ValidationErrors | null {
     const value = control.value;
-  
+
     // Your custom validation logic here
     if (value === '') {
-      return { qInvalid: true, error: "Rating Required"}; // Add your own validation condition
+      return { qInvalid: true, error: "Rating Required" }; // Add your own validation condition
     }
-  
+
     // Return null if the validation passes
     return null;
   }
@@ -93,7 +94,7 @@ export class TeacherFeedbackComponent {
         // Add more form controls for other questions as needed
       };
 
-      if(item.isElective=='NO') {
+      if (item.isElective == 'NO') {
         formGroupConfig['q1'].setValidators([Validators.required, this.customQValidator]);
         formGroupConfig['q2'].setValidators([Validators.required, this.customQValidator]);
         formGroupConfig['q3'].setValidators([Validators.required, this.customQValidator]);
@@ -105,35 +106,35 @@ export class TeacherFeedbackComponent {
         formGroupConfig['q9'].setValidators([Validators.required, this.customQValidator]);
         formGroupConfig['q10'].setValidators([Validators.required, this.customQValidator]);
       }
-  
+
       // Apply the UCID validation only for the first form group
       if (index === 0) {
         formGroupConfig['ucid'].setValidators([Validators.required, this.ucidFormatValidator]);
       }
-  
+
       return this.formBuilder.group(formGroupConfig);
     });
   }
 
   private getFacultySubjects() {
-      this.facultyService.getFacultySubjects(this.param).subscribe((data) => {
+    this.facultyService.getFacultySubjects(this.param).subscribe((data) => {
+      this.faculty = data;
+    });
+    if (this.faculty.length === 0) {
+      this.facultyService.getJSON().subscribe((data) => {
         this.faculty = data;
-      });
-      if(this.faculty.length===0) {
-        this.facultyService.getJSON().subscribe((data) => {
-          this.faculty = data;
-        })
-      }
-      setTimeout(() => {
-        this.createItemForms();
-        this.loader = false;
-      }, 3000);      
+      })
+    }
+    setTimeout(() => {
+      this.createItemForms();
+      this.loader = false;
+    }, 3000);
   }
 
   next() {
     this.nextButtonClicked = true;
-    const activeFormGroup = this.itemForms[this.step-1];
-    console.log(this.itemForms[this.step-1]);
+    const activeFormGroup = this.itemForms[this.step - 1];
+    console.log(this.itemForms[this.step - 1]);
     if (activeFormGroup.valid) {
       if (this.step <= this.itemForms.length - 1) {
         this.step++;
@@ -154,8 +155,8 @@ export class TeacherFeedbackComponent {
 
   submit() {
     this.nextButtonClicked = true;
-    const activeFormGroup = this.itemForms[this.step-1];
-    console.log(this.itemForms[this.step-1]);
+    const activeFormGroup = this.itemForms[this.step - 1];
+    console.log(this.itemForms[this.step - 1]);
     if (activeFormGroup.valid) {
       if (this.step <= this.itemForms.length) {
         // this.step++;
@@ -174,7 +175,7 @@ export class TeacherFeedbackComponent {
   mergeFormGroups(): void {
     this.mergedData = this.itemForms.map((formGroup, index) => {
       const formValue = formGroup.value;
-      if(formValue.q1 === '' || formValue.q2 === '' || formValue.q3 === '' || formValue.q4 === '' || formValue.q5 === '' ||
+      if (formValue.q1 === '' || formValue.q2 === '' || formValue.q3 === '' || formValue.q4 === '' || formValue.q5 === '' ||
         formValue.q6 === '' || formValue.q7 === '' || formValue.q8 === '' || formValue.q5 === '' || formValue.q10 === '') {
         return null;
       }
@@ -196,17 +197,25 @@ export class TeacherFeedbackComponent {
         className: this.faculty[index].className
         // Add more properties as needed for other form controls
       };
-      
+
     }).filter(item => item !== null);
-    
+
 
     // Now, mergedData contains the merged objects
     console.log(JSON.stringify(this.mergedData));
 
-    this.facultyService.facultyReview(JSON.stringify(this.mergedData)).subscribe(() => {
-      this.goToHomePage();
+    this.facultyService.facultyReview(JSON.stringify(this.mergedData)).subscribe((response) => {
+      console.log(response);
+      this.showTopCenter();
+      setTimeout(() => {
+        this.goToHomePage();
+      }, 2000);
     })
-    
+
+  }
+
+  showTopCenter() {
+    this.messageService.add({ key: 'tc', severity: 'success', summary: 'Success', detail: 'Feedback Submitted Successfully' });
   }
 
   goToHomePage() {

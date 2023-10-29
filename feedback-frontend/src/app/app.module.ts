@@ -23,6 +23,10 @@ import { TagModule } from 'primeng/tag';
 import { ButtonModule } from 'primeng/button';
 import {InputTextModule} from 'primeng/inputtext';
 import { TooltipModule } from 'primeng/tooltip';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
+import { MessageModule } from 'primeng/message';
+import { MessagesModule } from 'primeng/messages';
 
 @NgModule({
   declarations: [
@@ -51,7 +55,11 @@ import { TooltipModule } from 'primeng/tooltip';
     TagModule,
     ButtonModule,
     InputTextModule,
-    TooltipModule
+    TooltipModule,
+    ConfirmDialogModule,
+    ToastModule,
+    MessageModule,
+    MessagesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

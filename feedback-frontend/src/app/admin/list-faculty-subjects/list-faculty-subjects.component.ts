@@ -3,10 +3,12 @@ import { Router } from '@angular/router';
 import { Table } from 'primeng/table';
 import { FacultySubjects } from 'src/app/class/FacultySubjects/faculty-subjects';
 import { FacultySubjectsService } from 'src/app/services/restAPI/faculty-subjects.service';
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-list-faculty-subjects',
   templateUrl: './list-faculty-subjects.component.html',
-  styleUrls: ['./list-faculty-subjects.component.scss']
+  styleUrls: ['./list-faculty-subjects.component.scss'],
+  providers: [MessageService]
 })
 
 export class ListFacultySubjectsComponent {
@@ -21,7 +23,7 @@ export class ListFacultySubjectsComponent {
     this.dt!.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
   }
 
-  constructor(private facultySubjectsService: FacultySubjectsService,
+  constructor(private messageService: MessageService, private facultySubjectsService: FacultySubjectsService,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -46,7 +48,12 @@ export class ListFacultySubjectsComponent {
   deleteEmployee(id: number){
     this.facultySubjectsService.deleteFacultySubjects(id).subscribe( data => {
       console.log(data);
+      this.showTopCenter();
       this.getList();
     })
+  }
+
+  showTopCenter() {
+    this.messageService.add({ key: 'tc', severity: 'error', summary: 'Deleted', detail: 'Faculty Subject Deleted Successfully' });
   }
 }

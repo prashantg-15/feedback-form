@@ -1,4 +1,5 @@
 <div class="container">
+  <p-toast position="top-center" key="tc"></p-toast>
   <h1>Add Faculty Subject</h1>
   <form (ngSubmit)="onSubmit()" [formGroup]="facultySubjectsForm">
     <div class="form">
@@ -10,9 +11,9 @@
         </div>
         <div class="formbold-mb-6 mandatory addfaculty" style="margin-bottom: 20px;">
           <label class="formbold-form-label">Faculty Name</label><br>
-          <p-dropdown [options]="facultyNamesList" [(ngModel)]="customFacultyName"
-          (ngModelChange)="handleCustomFacultyNameChange($event)" formControlName="facultyName" placeholder="Select a Faculty Name"
-            [editable]="true" optionLabel="name"></p-dropdown>
+          <p-dropdown [options]="facultyName" [(ngModel)]="customFacultyName"
+            (ngModelChange)="handleCustomFacultyNameChange($event)" formControlName="facultyName"
+            placeholder="Select a Faculty Name" [editable]="true" optionLabel="faculty_name"></p-dropdown>
         </div>
       </div>
       <div class="row">
@@ -25,10 +26,10 @@
           <p-dropdown [options]="options" placeholder="Select One" formControlName="isElective"
             optionLabel="name"></p-dropdown>
         </div>
-      </div>      
+      </div>
       <div class="button">
         <button class="btn btn-next formbold-btn">Add Faculty</button>
       </div>
     </div>
   </form>
-</div>
+  </div>
