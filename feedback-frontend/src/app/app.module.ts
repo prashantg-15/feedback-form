@@ -22,7 +22,11 @@ import { UpdateFacultySubjectsComponent } from './admin/update-faculty-subjects/
 import { TagModule } from 'primeng/tag';
 import { ButtonModule } from 'primeng/button';
 import {InputTextModule} from 'primeng/inputtext';
-
+import { TooltipModule } from 'primeng/tooltip';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
+import { MessageModule } from 'primeng/message';
+import { MessagesModule } from 'primeng/messages';
 
 @NgModule({
   declarations: [
@@ -50,7 +54,12 @@ import {InputTextModule} from 'primeng/inputtext';
     TableModule,
     TagModule,
     ButtonModule,
-    InputTextModule
+    InputTextModule,
+    TooltipModule,
+    ConfirmDialogModule,
+    ToastModule,
+    MessageModule,
+    MessagesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

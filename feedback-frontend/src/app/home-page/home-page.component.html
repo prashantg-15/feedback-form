@@ -1,36 +1,37 @@
-<!-- <div class="home-page">
-    <button [routerLink]="['/teacher-feedback',fy]" class="formbold-btn">FYMCA</button> <br>
-    <button [routerLink]="['/teacher-feedback',sy]" class="formbold-btn">SYMCA</button>
-</div> -->
 <app-dialog-component *ngIf="service.showDialog"></app-dialog-component>
 
 <div class="hero">
   <nav>
-    <img src="../../assets/images/logo.png" alt="logo" class="logo">
+    <img src="../../assets/images/logo1.png" alt="logo" class="logo" />
     <div class="ul-css">
       <ul class="nav-margin">
         <li><a href="">Contact Us</a></li>
         <li><a href="">How It Works</a></li>
         <li><a href="">About us</a></li>
       </ul>
-      <div>
-        <ul>
-          <button class="btn-css" (click)="service.showDialog = true">Login</button>
-        </ul>
+      <div class="login">
+        <button class="formbold-btn" (click)="service.showDialog = true">
+          Login
+        </button>
       </div>
     </div>
   </nav>
-  <div class="content">
-    <h1> Your FEEDBACK <br> Matters To Us</h1>
-    <p> SpireMetrics is a project dedicated to analyzing feedback provided by students enrolled in the Master
-      of Computer Applications (MCA) program. This initiative aims to gain valuable insights into students'
-      opinions and sentiments regarding their academic experiences, allowing for data-driven improvements and
-      enhancements to the program's quality and effectiveness.</p>
-    <div>
-      <a href="#" [routerLink]="['/teacher-feedback',fy]" class="btn-css">FYMCA</a><br>
-      <a href="#" [routerLink]="['/teacher-feedback',sy]" class="btn-css">SYMCA</a>
+  <div class="main-content">
+    <div class="content">
+      <p class="heading">Your Feedback Matters To Us</p>
+      <p class="slogan">
+        Unlocking the Power of Student Feedback: <br />
+        SpireMetrics - Where Insights Transform Education.
+      </p>
+      <div class="class-btn">
+        <a style="margin-left: 83px;" href="#" [routerLink]="['/teacher-feedback', fy]" class="formbold-btn"
+          >FYMCA</a
+        ><br />
+        <a href="#" [routerLink]="['/teacher-feedback', sy]" class="formbold-btn"
+          >SYMCA</a
+        >
+      </div>
     </div>
-
+    <img src="../../assets/images/hero.jpg" alt="main-img" class="feature-img" />
   </div>
-  <img src="../../assets/images/1.png" alt="main-img" class="feature-img">
 </div>

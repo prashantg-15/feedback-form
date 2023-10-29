@@ -69,6 +69,35 @@ public class FacultySubjectsService {
 		}
 		return "Not Inserted";
 	}
+	
+	public String update(FacultySubjects facultySubjects, Integer Id) throws ClassNotFoundException {
+	    String query = "UPDATE FeedbackProject.FacultySubjects " +
+	                   "SET className=?, faculty_name=?, subject=?, isElective=? " +
+	                   "WHERE id=?";
+
+	    Class.forName("com.mysql.cj.jdbc.Driver");
+	    int result = 0;
+
+	    try (Connection connection = DriverManager.getConnection(url, user, password);
+	         PreparedStatement stmt = connection.prepareStatement(query);) {
+	        stmt.setString(1, facultySubjects.getClassName());
+	        stmt.setString(2, facultySubjects.getFaculty_name());
+	        stmt.setString(3, facultySubjects.getSubject());
+	        stmt.setString(4, facultySubjects.getIsElective());
+	        stmt.setInt(5, Id); // Assuming 'id' is an int
+
+	        result = stmt.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    if (result == 1) {
+	        return "Updated Successfully";
+	    } else {
+	        return "Not Updated";
+	    }
+	}
+
 
 	public boolean delete(FacultySubjects facultySubjects) throws ClassNotFoundException, SQLException {
 		String query = "Delete FROM FacultySubjects where id=?";

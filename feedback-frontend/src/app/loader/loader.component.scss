@@ -1,3 +1,7 @@
+$green: #01EAB4;
+$black: #44475B;
+$hover: #00D09C;
+
 /* loading.component.css */
 .containAll {
     background-color: rgba(0, 0, 0, 0.7);
@@ -22,7 +26,7 @@
 
         @for $i from 1 through 8 {
             .circle-#{$i} {
-                border: 7px solid rgb(0, 255, 153);
+                border: 7px solid $green;
                 // border: 10px solid black;
                 border-radius: 50%;
                 box-sizing: border-box;
@@ -54,7 +58,7 @@
 
 @keyframes rotate {
     50% {
-        border: 1px solid rgb(0, 255, 153);
+        border: 1px solid $green;
         border-right: 1px solid transparent;
         border-bottom: 1px solid transparent;
         border-left: 1px solid transparent;

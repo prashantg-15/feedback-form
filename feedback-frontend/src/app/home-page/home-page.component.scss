@@ -1,25 +1,17 @@
 // .home-page {
 //     height: 100vh;
 //     padding-top: 50px;
-//     .formbold-btn {
-//         margin: 2% 7%;
-//         width: 20%;
-//     }
 // }
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'poppins', sans-serif;
-}
+
+$green: #01EAB4;
+$black: #44475B;
+$hover: #00D09C;
 
 .hero {
-    width: auto;
-    min-height: 90vh;
-    padding: 10px 10px;
     overflow: hidden;
-    margin: 0 10%;
     position: relative;
+    margin: 0px 9%;
+    padding-top: 13px;
 }
 
 .logo {
@@ -28,7 +20,6 @@
 
 nav {
     justify-content: space-between;
-    padding: 10px 0;
     display: flex;
     align-items: center;
 
@@ -42,34 +33,60 @@ nav ul li {
 
 nav ul li a {
     text-decoration: none;
-    //color: #11CFA4;
+    color: $black;
     font-weight: 400;
+    &:hover{
+        color: $hover;
+        transition: all 0.2s ease-in-out;
+    }
 }
 
 .nav-margin {
     color: #11CFA4;
 }
 
-.btn-css {
-    //display: inline-block;
-    text-decoration: none;
-    padding: 14px 40px;
-    //color: #64f3d1;
-    background-image: linear-gradient(45deg, #0fb18b, #64f3d1);
-    font-size: 14px;
-    border-radius: 30px;
-    border-top-right-radius: 0;
-    color: black;
-    transition: 0.5s;
+.login .formbold-btn {
+    margin: 0;
+    padding: 11px 25px;
+    margin-left: 15px;
+    width: auto;
+}
+
+// .btn-css {
+//     //display: inline-block;
+//     text-decoration: none;
+//     padding: 14px 40px;
+//     //color: #64f3d1;
+//     background-image: linear-gradient(45deg, #0fb18b, #64f3d1);
+//     font-size: 14px;
+//     border-radius: 30px;
+//     border-top-right-radius: 0;
+//     color: black;
+//     transition: 0.5s;
+// }
+
+.heading {
+    font-size: 60px;
+    font-weight: 600;
+    font-style: italic;
+}
+
+.slogan {
+    margin-top: -20px !important;
+    font-size: 20px;
+    font-weight: 400;
+    font-style: oblique;
 }
 
 .ul-css {
     display: flex;
+    align-items: center;
 }
 
 .content {
-    margin-top: 10%;
+    // margin-top: 10%;
     max-width: 600px;
+    margin-left: 83px;
 }
 
 .content h1 {
@@ -87,6 +104,24 @@ nav ul li a {
 
 }
 
+.main-content {
+    height: 567px;
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.class-btn {
+    margin-top: -27px;
+    a {
+        margin-left: 53px;
+        text-decoration: none;
+        &.formbold-btn {
+            padding: 11px 25px;
+        }
+    }
+}
+
 .content .btn-css {
     font-size: 16px;
     width: 200px;
@@ -100,10 +135,8 @@ nav ul li a {
 }
 
 .feature-img {
-    width: 530px;
+    width: 493px;
     position: absolute;
-    bottom: 0;
-    right: 1%;
-    margin-top: 10%;
-    min-height: 450px;
+    bottom: 43px;
+    right: 8%;
 }

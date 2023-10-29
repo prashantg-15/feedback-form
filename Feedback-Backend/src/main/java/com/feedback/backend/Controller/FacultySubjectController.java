@@ -67,7 +67,7 @@ public class FacultySubjectController {
 		facultySubjects.setIsElective(facultySubjectsdetails.getIsElective());
 		facultySubjects.setSubject(facultySubjectsdetails.getSubject());
 
-		String updatedEmployee = facultySubjectsService.save(facultySubjects);
+		String updatedEmployee = facultySubjectsService.update(facultySubjects, Id);
 		return ResponseEntity.ok(updatedEmployee);
 	}
 
