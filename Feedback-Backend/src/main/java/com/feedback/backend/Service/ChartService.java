@@ -55,6 +55,26 @@ public class ChartService {
 				}
 				ratingMapLev1.put("q" + i, ratingListLev2);
 			}
+			
+			// Adding Sentiments [Q11]
+			List<Map<String, String>> ratingListLev2 = new ArrayList<Map<String, String>>();
+			String query1 = "SELECT COUNT(FeedBackSentiment) AS sentiment FROM FacultyReview WHERE "
+						  + "subject=? AND faculty=? AND FeedBackSentiment=?";
+			String[] sentiments = {"positive", "negative", "neutral"};
+			for(int i=0; i<sentiments.length; i++) {
+				PreparedStatement stmt = connection.prepareStatement(query1);
+				stmt.setString(1, subjectName);
+				stmt.setString(2, facultyName);
+				stmt.setString(3, sentiments[i]);
+				ResultSet resultSet = stmt.executeQuery();
+				while (resultSet.next()) {
+					Map<String, String> ratingMap2 = new HashMap<String, String>();
+					ratingMap2.put(sentiments[i], Integer.toString(resultSet.getInt("sentiment")));
+					ratingListLev2.add(ratingMap2);
+				}
+			}
+			ratingMapLev1.put("sentiments", ratingListLev2);
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
