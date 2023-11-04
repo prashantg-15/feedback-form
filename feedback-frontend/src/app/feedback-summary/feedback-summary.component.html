@@ -1,5 +1,11 @@
 <!-- <app-loader *ngIf="loader"></app-loader> -->
+<div class="progress-spinner" *ngIf="loader">
+  <p-progressSpinner></p-progressSpinner>
+</div>
 <div class="feedback-page">
+  <!-- <div class="spinner" *ngIf="loader">
+    <p-progressSpinner class="progress"></p-progressSpinner>
+  </div> -->
   <div class="card">
     <p-card class="details">
       <h1>Faculty: <span>{{facultyName}}</span></h1>
@@ -13,7 +19,7 @@
       <h1><span>Feedback Summary</span></h1>
       <div class="summary grid-container">
         <div class="column">
-          <p-accordion [multiple]="true">
+          <p-accordion [multiple]="true" [activeIndex]="activeIndexes">
             <ng-container *ngFor="let question of questions.slice(0, 5); let i = index">
               <p-accordionTab [header]="feedbackTitle[i]">
                 <div class="container">
@@ -31,7 +37,7 @@
           </p-accordion>
         </div>
         <div class="column">
-          <p-accordion [multiple]="true">
+          <p-accordion [multiple]="true" [activeIndex]="activeIndexes">
             <ng-container *ngFor="let question of questions; let i = index">
               <!-- Check if the current question is one of the last 5 elements -->
               <ng-container *ngIf="i >= questions.length - 5">

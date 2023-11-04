@@ -19,7 +19,11 @@ export class FeedbackSummaryComponent {
   subject: Subject[] | undefined;
   selectedSubject: any = '';
 
-  chart: any = [];
+  activeIndexes: number[] = [0, 1, 2, 3, 4];
+
+  charts: any[] = [];
+  chart: any;
+  chart1: any;
   backgroundColor: any = ['#FAB06F', '#FF505D', '#15CEAE', '#45AFFF', '#FFE85F'];
   feedback: any = {};
 
@@ -59,14 +63,10 @@ export class FeedbackSummaryComponent {
     this.facultyService.getFeedback(this.facultyName, this.selectedSubject.name).subscribe((data) => {
       this.feedback = data;
     })
-    // if (this.feedback.length === 0) {
-    //   this.facultyService.getChart().subscribe((data) => {
-    //     this.feedback = data;
-    //   })
-    // }
     setTimeout(() => {
-      this.Charts();  
-      this.loader = false; 
+      this.sentimentChart();
+      this.Charts();
+      this.loader = false;
     }, 3000);
   }
 
@@ -81,12 +81,56 @@ export class FeedbackSummaryComponent {
     this.getFeedback();
   }
 
+  sentimentChart() {
+    const label1 = ['Positive', 'Negative', 'Neutral']
+    let sentiments: any[] = [];
+    sentiments = this.feedback["sentiments"].map((item: { keyy: any; }) => item)
+    console.log(sentiments);
+
+    if (this.chart1) {
+      this.chart1.destroy();
+    }
+
+    this.chart1 = new Chart(`q11Chart`, {
+      type: 'doughnut',
+      data: {
+        labels: label1,
+        datasets: [
+          {
+            label: ' No. of Votes',
+            data: sentiments.map(obj => Object.values(obj)[0]),
+            backgroundColor: this.backgroundColor,
+            borderWidth: 7,
+            borderRadius: 2,
+            hoverBorderWidth: 0
+          },
+        ],
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            display: false,
+          },
+        },
+        responsive: true,
+      },
+    });
+  }
+
   Charts() {
     // Create an array of question keys from "q1" to "q10"
     const questionKeys = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10'];
 
     // Create an array to store the generated charts
-    const charts: any[] = [];
+
+    // To destroy the charts
+    for (const chart of this.charts) {
+      chart.destroy();
+    }
+
+    // Clear the array to release references to the destroyed charts
+    this.charts.length = 0;
 
     // Iterate through the question keys and generate charts
     for (const key of questionKeys) {
@@ -116,7 +160,7 @@ export class FeedbackSummaryComponent {
         },
       });
 
-      charts.push(chart); // Store the chart in the array
+      this.charts.push(chart); // Store the chart in the array
     }
     // this.chart = new Chart('q1Chart', {
     //   type: 'pie',

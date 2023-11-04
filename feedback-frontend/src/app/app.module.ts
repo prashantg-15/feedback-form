@@ -27,6 +27,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { MessageModule } from 'primeng/message';
 import { MessagesModule } from 'primeng/messages';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { MessagesModule } from 'primeng/messages';
     ConfirmDialogModule,
     ToastModule,
     MessageModule,
-    MessagesModule
+    MessagesModule,
+    ProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
